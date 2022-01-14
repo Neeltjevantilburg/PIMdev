@@ -1,0 +1,80 @@
+<div class="container-fluid overflow-auto">
+    <div class="row d-flex justify-content-between align-items-center mb-4">
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <mat-form-field class="p-0 pe-5">
+                <mat-label>Vind verzuimmelding</mat-label>
+                <input matInput
+                (keyup)="filter($event)"
+                placeholder="Bijv. ingediend"
+                #input
+                />
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="col-12">
+            <table mat-table matSort
+                [dataSource]="absenteeism"
+                class="mat-elevation-z8 w-100"
+                #sort="matSort"
+            >                                                
+                <ng-container matColumnDef="naam">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Medewerker </th>
+                    <td mat-cell *matCellDef="let absenteeism">{{absenteeism.Employee_Contact__c}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="eersteZiektedag">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> 1ste ziektedag </th>
+                    <td mat-cell *matCellDef="let absenteeism">{{absenteeism.First_Day_of_Sickness__c | date: 'dd-MM-yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="herstelDatum">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Hersteldatum </th>
+                    <td mat-cell *matCellDef="let absenteeism">{{absenteeism.Date_Full_Recovery__c  | date: 'dd-MM-yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let absenteeism">{{absenteeism.Status_Ziekmelding__c}}</td>
+                </ng-container>    
+
+                <ng-container matColumnDef="quickActions">
+                    <th mat-header-cell *matHeaderCellDef ></th>
+                    <td mat-cell class="p-0" *matCellDef="let absenteeism">
+                        <div [matMenuTriggerFor]="snelMenu" class="w-25">
+                            <button mat-icon-button>
+                                <mat-icon
+                                matTooltip="snel menu"
+                                matTooltipShowDelay="1000"
+                                >menu</mat-icon>
+                            </button>
+                            <mat-menu #snelMenu="matMenu">
+                                <button mat-menu-item (click)="check(absenteeism.id)">
+                                    <span>Bekijk</span>
+                                </button>
+                                <button mat-menu-item (click)="edit(absenteeism.id)" [disabled]="completed(absenteeism.Status_Ziekmelding__c)">
+                                    <span>Wijzig</span>
+                                </button>
+                                <button mat-menu-item (click)="recovered(absenteeism.id)" [disabled]="completed(absenteeism.Status_Ziekmelding__c)">
+                                    <span>Beter melden</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="absenteeismColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: absenteeismColumns;"></tr>
+                
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Geen overkomsten met "{{input.value}}"</td>
+                </tr>
+            </table>
+            <mat-paginator
+                #paginator="matPaginator"
+                [pageSize]="pageSize"
+            ></mat-paginator>
+        </div>
+    </div>
+</div>

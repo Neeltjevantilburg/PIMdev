@@ -1,0 +1,85 @@
+<div class="container-fluid d-flex flex-column justify-content-between my-auto" [ngStyle]="myHeight">
+	<div class="row h5 m-0 mb-3">
+		<h6 class="text-center pimColor">Welkom bij PIM</h6>
+		<h4 class="text-center"><b>Maak hier uw account aan</b></h4>
+	</div>
+	<div class="row h-90 m-0 my-auto">
+		<div class="col-8 offset-2">
+			<form [formGroup]="registryForm" class="row row-cols-auto align-items-top">
+				<div class="col-6">
+					<mat-form-field class="w-100 logIn" appearance="legacy">
+						<mat-label class="pimColor">Bedrijfsnaam *</mat-label>
+						<input matInput formControlName="Company" >
+						<mat-error *ngIf="this.registryForm.get('Company')?.invalid">{{displayErrorMessage('Company')}}</mat-error>
+					</mat-form-field>
+					<mat-form-field class="w-100 logIn" appearance="legacy">
+						<mat-label class="pimColor">Straatnaam & Huisnummer *</mat-label>
+						<input matInput formControlName="Street" >
+						<mat-error *ngIf="this.registryForm.get('Street')?.invalid">{{displayErrorMessage('Street')}}</mat-error>
+					</mat-form-field>
+					<mat-form-field class="w30 pe-1 logIn" appearance="legacy">
+						<mat-label class="pimColor">Postcode *</mat-label>
+						<input matInput formControlName="PostalCode" maxlength="7" >
+						<mat-error *ngIf="this.registryForm.get('PostalCode')?.invalid">{{displayErrorMessage('PostalCode')}}</mat-error>
+					</mat-form-field>
+					<mat-form-field class="w70 logIn" appearance="legacy">
+						<mat-label class="pimColor">Plaatsnaam *</mat-label>
+						<input matInput formControlName="City" >
+						<mat-error *ngIf="this.registryForm.get('City')?.invalid">{{displayErrorMessage('City')}}</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-6">
+					<mat-form-field appearance="legacy" class="logIn w20 pe-1">
+						<mat-label class="pimColor">Aanhef *</mat-label>
+						<mat-select formControlName='Salutation' >
+							<mat-option *ngFor="let option of picklist.type.aanheffen" [value]="option.value">{{ option.viewValue }}</mat-option>
+						</mat-select>
+						<mat-error *ngIf="this.registryForm.get('Salutation')?.invalid">{{displayErrorMessage('Salutation')}}</mat-error>
+					</mat-form-field>
+					<mat-form-field appearance="legacy" class="logIn w30">
+						<mat-label class="pimColor">Voornaam *</mat-label>
+						<input matInput formControlName="FirstName">
+						<mat-error *ngIf="this.registryForm.get('FirstName')?.invalid">{{displayErrorMessage('FirstName')}}</mat-error>
+					</mat-form-field>
+					<mat-form-field appearance="legacy" class="logIn w20 px-1">
+						<mat-label class="pimColor">Tussenvoegsel</mat-label>
+						<input matInput formControlName="MiddleName">
+					</mat-form-field>
+					<mat-form-field appearance="legacy" class="logIn w30">
+						<mat-label class="pimColor">Achternaam *</mat-label>
+						<input matInput formControlName="LastName" >
+						<mat-error *ngIf="this.registryForm.get('LastName')?.invalid">{{displayErrorMessage('LastName')}}</mat-error>
+					</mat-form-field>
+					<mat-form-field appearance="legacy" class="logIn w-50">
+						<mat-label class="pimColor">E-mail *</mat-label>
+						<input matInput formControlName="Email">
+						<mat-error *ngIf="this.registryForm.get('Email')?.invalid">{{displayErrorMessage('Email')}}</mat-error>
+					</mat-form-field>
+					<mat-form-field appearance="legacy" class="logIn px-1 w-25">
+						<mat-label class="pimColor">Telefoon</mat-label>
+						<input matInput formControlName="Phone">
+						<mat-error *ngIf="this.registryForm.get('Phone')?.invalid">{{displayErrorMessage('Phone')}}</mat-error>
+					</mat-form-field>
+					<mat-form-field appearance="legacy" class="logIn w-25">
+						<mat-label class="pimColor">Mobiel</mat-label>                            
+						<input matInput formControlName="MobilePhone">
+						<mat-error *ngIf="this.registryForm.get('MobilePhone')?.invalid">{{displayErrorMessage('MobilePhone')}}</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-12 d-flex align-items-center justify-content-center">
+					<p>* verplicht veld</p>
+				</div>
+			</form>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-4 offset-4">
+						<button mat-raised-button class="w-100 mb-3 pimBgColor logIn" [disabled]='!this.registryForm.valid' (click)="confirmRegistry()">Meld Aan</button>
+						<div class="container-fluid d-flex justify-content-center p-0">
+							<a class="text logIn" role="button" (click)="navigate.to('/login')"><u>Al PIM klant? klik <b>hier</b> om in te loggen</u></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

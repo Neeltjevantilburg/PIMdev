@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <div class="row header" [ngStyle]="customBackgroundColor">
+        <div class="logoContainer d-flex justify-content-center">
+            <a *ngIf="companyUrl$ | async as company" href="https://{{ company.Website }}" target="_blank"><img *ngIf="imgSource$ | async as imgSource" [src]="imgSource" class="rounded-circle logo"></a>
+        </div>
+        <div class="headerMenuContainer">
+            <pim-header-menu [customBackgroundColor]="customBackgroundColor"></pim-header-menu>
+        </div>
+    </div>
+    <div class="row body">
+        <div class="sideMenuContainer">
+            <pim-side-menu [customBackgroundColor]="customBackgroundColor"></pim-side-menu>
+        </div>
+        <div class="contentContainer">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div *ngIf="userData$ | async as user" class="content">
+    <div class="header">
+        <p>Mijn Profiel</p>
+    </div>
+    <div class="body">
+        <div class="spacer"></div>
+        <div class="profile">
+            <div class="image-container">
+                <img *ngIf="imgSource$ | async as imgSource" [src]="imgSource" class="rounded-circle"/>
+                <p [ngStyle]="customColor" (click)="editProfilePicture()">wijzig foto</p>
+            </div>
+            <div *ngIf="userAge$ | async as age" class="text-container">
+                <p>{{ user.Name }}</p>
+                <p>{{ user.Birthdate | date: 'dd-MM-yyyy'}} ({{ age }})</p>
+            </div>
+        </div>
+        <hr>
+        <div class="data">
+            <div class="data-container">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="bold">Naam:</p>
+                    </div>
+                    <div class="col-6">
+                        <p>{{ user.Name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="bold">Wachtwoord:</p>
+                    </div>
+                    <div class="col-6">
+                        <div class="password">
+                            <p>********</p>
+                            <p [ngStyle]="customColor" (click)="resetPassword()">wijzig wachtwoord</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="bold">Rol:</p>
+                    </div>
+                    <div class="col-6">
+                        <p>{{ user.PIM_Rollen__c}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="bold">Functie:</p>
+                    </div>
+                    <div class="col-6">
+                        <p *ngIf="user.Functienaam__r">{{ user.Functienaam__r.Name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="bold">Telefoonnummer:</p>
+                    </div>
+                    <div class="col-6">
+                        <p>{{ user.Phone }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

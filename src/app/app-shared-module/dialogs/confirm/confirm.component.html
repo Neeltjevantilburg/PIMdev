@@ -1,0 +1,52 @@
+<h1 mat-dialog-title class="text-center">Controleer uw gegevens:</h1>
+<mat-dialog-content>
+    <div class="container">
+        <div class="row">
+            <div class="col-5">
+                <p class="fw-bold mb-1">Bedrijfsnaam :</p>
+            </div>
+            <div class="col-7">
+                <p class="mb-1">{{ formData.Company }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <p class="fw-bold mb-1">Adres :</p>
+            </div>
+            <div class="col-7">
+                <p class="m-0">{{ formData.Street }}</p>
+                <p class="mb-1">{{ formData.PostalCode }} {{ formData.City }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <p class="fw-bold mb-1">Contactpersoon :</p>
+            </div>
+            <div class="col-7">
+                <p class="mb-1">{{ formData.Salutation }} {{ formData.FirstName }} {{ formData.MiddleName }} {{ formData.LastName }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <p class="fw-bold mb-1">E-mail :</p>
+            </div>
+            <div class="col-7">
+                <p class="mb-1">{{ formData.Email }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <p class="fw-bold mb-1">Telefoon :</p>
+                <p class="fw-bold mb-1">Mobiel :</p>
+            </div>
+            <div class="col-7">
+                <p class="mb-1">{{ formData.Phone }}</p>
+                <p class="mb-1">{{ formData.MobilePhone }}</p>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="d-flex justify-content-between">
+    <button mat-raised-button mat-dialog-close color="warn" class="logIn">Annuleer</button>
+    <button mat-raised-button mat-dialog-close="confirm" class="logIn pimBgColor">Bevestig</button>
+</mat-dialog-actions>

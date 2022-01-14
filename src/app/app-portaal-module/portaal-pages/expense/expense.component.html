@@ -1,0 +1,80 @@
+<div class="container-fluid overflow-auto">
+    <div class="row d-flex justify-content-between align-items-center mb-4">
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <mat-form-field class="p-0 pe-5">
+                <mat-label>Vind declaratie</mat-label>
+                <input matInput
+                (keyup)="filter($event)"
+                placeholder="Bijv. Developer"
+                #input
+                />
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="col-12">
+            <table mat-table matSort
+                [dataSource]="expenses"
+                class="mat-elevation-z8 w-100"
+                #sort="matSort"
+            >                                                
+                <ng-container matColumnDef="naam">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Medewerker </th>
+                    <td mat-cell *matCellDef="let expense">{{expense.naam}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="datum">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Datum </th>
+                    <td mat-cell *matCellDef="let expense">{{expense.datum  | date: 'dd-MM-yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="bedrag">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Bedrag </th>
+                    <td mat-cell *matCellDef="let expense">{{expense.bedrag}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let expense">{{expense.status}}</td>
+                </ng-container>    
+
+                <ng-container matColumnDef="quickActions">
+                    <th mat-header-cell *matHeaderCellDef ></th>
+                    <td mat-cell class="p-0" *matCellDef="let expense">
+                        <div [matMenuTriggerFor]="snelMenu" class="w-25">
+                            <button mat-icon-button>
+                                <mat-icon
+                                matTooltip="snel menu"
+                                matTooltipShowDelay="1000"
+                                >menu</mat-icon>
+                            </button>
+                            <mat-menu #snelMenu="matMenu">
+                                <button mat-menu-item (click)="check(expense.id)">
+                                    <span>Bekijk</span>
+                                </button>
+                                <button mat-menu-item (click)="approved(false, expense.id)" [disabled]="completed(expense.status)">
+                                    <span>Goedkeuren</span>
+                                </button>
+                                <button mat-menu-item (click)="approved(false, expense.id)" [disabled]="completed(expense.status)">
+                                    <span>Afwijzen</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="expensesColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: expensesColumns;"></tr>
+                
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Geen overkomsten met "{{input.value}}"</td>
+                </tr>
+            </table>
+            <mat-paginator
+                #paginator="matPaginator"
+                [pageSize]="pageSize"
+            ></mat-paginator>
+        </div>
+    </div>
+</div>

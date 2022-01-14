@@ -1,0 +1,56 @@
+<div class="container-fluid h-100">
+    <div class="row border-bottom">
+        <h4>Bekijk declaratie</h4>
+    </div>
+    <div class="row pt-3 border-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 d-flex flex-column">
+                    <p class="m-0"><b>Werknemer</b></p>
+                    <p>{{ expense!.naam }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Betaaldatum</b></p>
+                    <p>{{ expense!.datum  | date: 'dd-MM-yyyy' }}</p>
+                </div>
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Bedrag</b></p>
+                    <p>€ {{ expense!.bedrag }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Categorie</b></p>
+                    <p>{{ expense!.categorie }}</p>
+                </div>
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Type</b></p>
+                    <p>{{ expense!.type }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex flex-column">
+                    <p class="m-0"><b>Opmerking</b></p>
+                    <p>{{ expense!.opmerking }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Status</b></p>
+                    <p>{{ expense!.status }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-3 d-flex justify-content-between">
+        <div class="w-50">
+            <button mat-raised-button color="warn" (click)="close()">Annuleer</button>
+        </div>
+        <div class="w-50 d-flex justify-content-end">
+            <button mat-raised-button class="me-2" (click)="approved(false)" [disabled]="completed()">Afwijzen</button>
+            <button mat-raised-button (click)="approved(true)" [disabled]="completed()">Goedkeuren</button>
+        </div>
+    </div>    
+</div>

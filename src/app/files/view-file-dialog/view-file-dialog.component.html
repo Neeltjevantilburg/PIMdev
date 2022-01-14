@@ -1,0 +1,20 @@
+<div class="header">
+    <p class="title">Document</p>
+    <hr>
+</div>
+<div class="body">
+    <p class="fontWeight">Document naam</p>
+    <p>{{ fileName }}</p>
+    <div class="spacer"></div>
+    <p class="fontWeight">Bijlagen</p>
+    <div class="d-flex ">
+        <mat-icon [ngStyle]="customTextColor">attach_file</mat-icon>
+        <p [ngStyle]="customTextColor" class="link" (click)="viewFile()">open bijlagen</p>
+    </div>
+</div>
+<div class="footer">
+    <hr>
+    <div>
+        <button class="cancelBtn" mat-button mat-dialog-close><p>Terug</p></button>
+    </div>
+</div>

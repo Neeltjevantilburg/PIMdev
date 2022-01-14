@@ -1,0 +1,201 @@
+<div>
+    <p class="title">Declaratie</p>
+    <hr>
+</div>
+<div>
+    <div [formGroup]="newExpenseForm">
+        <div *ngIf="data.managerDialog" class="row">
+            <div class="col-6">
+                <p class="fontWeight">Medewerker</p>
+            </div>
+        </div>
+        <div *ngIf="data.managerDialog" class="row">
+            <div class="col-6">
+                <div *ngIf="employeeIdPicklist" class="select-wrapper">
+                    <select formControlName="Employee_Contact__c">
+                        <option *ngFor="let option of employeeIdPicklist" [value]="option.value">{{ option.viewValue }}</option>
+                    </select>                    
+                </div>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Bedrag</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Betaaldatum</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="bedrag-input">
+                    <span>€</span>
+                    <input formControlName="Amount__c" class="prefix-input" type="number" step="0.01"/>
+                </div>
+            </div>
+            <div class="col-6">
+                <input formControlName="DateTransaction__c" class="date-input" type="date"/>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <p class="fontWeight">Reden van uitgave</p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input formControlName="Business_Purpose__c"/>
+            </div>
+        </div>
+        <div class="row">          
+            <p class="fontWeight">Bijlagen*</p>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="d-flex">
+                <div *ngIf='attachedFile as file; else noFile' class="d-flex col-12">
+                    <mat-icon>attach_file</mat-icon>
+                    <p class="link">{{ file.Title }}</p>
+                    <mat-icon class="material-icons-outlined"
+                        (click)="viewFile(file.ContentDocumentId)"
+                        matTooltip="bekijk bestand"
+                        matTooltipShowDelay="1000"
+                    >pageview</mat-icon>
+                    <mat-icon class="material-icons-outlined"
+                        (click)="deleteFile(file.ContentDocumentId)"
+                        matTooltip="verwijder bestand"
+                        matTooltipShowDelay="1000"
+                    >delete</mat-icon>
+                </div>
+                <ng-template #noFile>
+                    <mat-icon class="margin8">attach_file</mat-icon>
+                    <input class="upload"
+                        type="file"
+                        #fileInput
+                        (change)="handleFileInput($any($event).target.files)"
+                    />
+                </ng-template>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <p class="subtext">*let op: zorg ervoor dat indien van toepassing het juiste bonnetje is toegevoegd.</p>
+        </div>
+        <hr>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Kostencategorie</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Betaalwijze</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div *ngIf="expenseCategoryPicklist" class="select-wrapper">
+                    <select formControlName="ExpenseCategory__c" (change)="categorySelected($any($event).target.value)">
+                        <option *ngFor="let option of expenseCategoryPicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+            </div>
+            <div class="col-6">
+                <div *ngIf="paymentTypePicklist" class="select-wrapper">
+                    <select formControlName="Payment_Type__c">
+                        <option *ngFor="let option of paymentTypePicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p *ngIf="category !== '' && category !== 'Parkeerkosten'" class="fontWeight">Kostentype</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Kostenplaats</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div *ngIf="category === 'Communicatie'" class="select-wrapper">
+                    <select formControlName="Type__c">
+                        <option *ngFor="let option of communicatiePicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+                <div *ngIf="category === 'Kantinekosten'" class="select-wrapper">
+                    <select formControlName="Type__c">
+                        <option *ngFor="let option of kantinekostenPicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+                <div *ngIf="category === 'Kantoorartikelen'" class="select-wrapper">
+                    <select formControlName="Type__c">
+                        <option *ngFor="let option of kantoorartikelenPicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+                <div *ngIf="category === 'Maaltijden'" class="select-wrapper">
+                    <select formControlName="Type__c">
+                        <option *ngFor="let option of maaltijdenPicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+                <div *ngIf="category === 'Overnachtingen'" class="select-wrapper">
+                    <select formControlName="Type__c">
+                        <option *ngFor="let option of overnachtingenPicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+                <div *ngIf="category === 'Reiskosten'" class="select-wrapper">
+                    <select formControlName="Type__c">
+                        <option *ngFor="let option of reiskostenPicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+                <div *ngIf="category === 'Representatiekosten'" class="select-wrapper">
+                    <select formControlName="Type__c">
+                        <option *ngFor="let option of representatiekostenPicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+                <div *ngIf="category === 'Overig'" class="select-wrapper">
+                    <select formControlName="Type__c">
+                        <option *ngFor="let option of overigPicklist" [value]="option.value">{{ option.value }}</option>
+                    </select>                    
+                </div>
+            </div>
+            <div class="col-6">
+                <input formControlName='Projectnummer_Kostenplaatsnummer__c'/>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Opmerkingen</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input formControlName="Comments__c"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <button class="cancelBtn" mat-dialog-close><p>terug</p></button>
+        </div>
+        <div *ngIf="expenseEditData$ | async as expense; else postBlock" class="col-6 d-flex justify-content-end">
+            <button class="saveBtn" (click)="updateExpense(expense.Id, true)">
+                <p>opslaan<br>en later indienen</p>
+            </button>
+            <button [ngStyle]="customBackgroundColor" (click)="updateExpense(expense.Id, false)"><p>indienen</p></button>
+        </div>
+        <ng-template #postBlock>
+            <div class="col-6 d-flex justify-content-end">
+                <button class="saveBtn" (click)="postExpense(true)">
+                    <p>opslaan<br>en later indienen</p>
+                </button>
+                <button [ngStyle]="customBackgroundColor" (click)="postExpense(false)"><p>indienen</p></button>
+            </div>
+        </ng-template>
+    </div>
+</div>

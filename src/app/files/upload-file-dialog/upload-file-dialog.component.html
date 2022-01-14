@@ -1,0 +1,52 @@
+<div class="header">
+    <p *ngIf="!data.profilePicture && !data.companyLogo" class="title">Document toevoegen</p>
+    <p *ngIf="data.profilePicture" class="title">Profielfoto wijzigen</p>
+    <p *ngIf="data.companyLogo" class="title">Bedrijfslogo wijzigen</p>
+    <hr>
+</div>
+<div class="body d-flex align-items-center">
+    <form [formGroup]="fileUploadForm">
+        <div *ngIf="!data.profilePicture">
+            <div class="row">
+                <div class="col-12">
+                    <p class="fontWeight">Document type:</p>
+                </div>
+            </div>
+            <div *ngIf="!data.profilePicture && !data.companyLogo" class="row">
+                <div class="col-12">
+                    <div class="select-wrapper">
+                        <select formControlName="fileName">
+                            <option *ngFor="let type of types" [value]="type.value">{{type.viewValue}}</option>
+                        </select>                    
+                    </div>
+                </div>
+            </div>
+            <div class="spacer"></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="fontWeight">Bijlagen:</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="input-box">
+                    <mat-icon class="prefix">attach_file</mat-icon>
+                    <input
+                        #fileInput 
+                        type="file"
+                        (change)="handleFileInput($any($event).target.files)"
+                    />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="footer">
+    <hr>
+    <div class="d-flex justify-content-between">
+        <button class="cancelBtn" mat-button mat-dialog-close><p>Terug</p></button>
+        <button *ngIf="data.profilePicture" mat-button [ngStyle]='customBackgroundColor' (click)="uploadFile()"><p>Toevoegen</p></button>
+        <button *ngIf="data.companyLogo" mat-button [ngStyle]='customBackgroundColor' (click)="uploadLogo()"><p>Toevoegen</p></button>
+    </div>
+</div>

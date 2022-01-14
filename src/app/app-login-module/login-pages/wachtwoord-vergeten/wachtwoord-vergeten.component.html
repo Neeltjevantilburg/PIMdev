@@ -1,0 +1,28 @@
+<div class="container-fluid d-flex flex-column justify-content-between" [ngStyle]="myHeight">
+	<div class="row h10 m-0">
+		<h6 class="text-center pimColor">Welkom bij PIM</h6>
+		<h4 class="text-center"><b>Wachtwoord reset aanvragen</b></h4>
+	</div>
+	<div class="row h-90 m-0 my-auto">
+		<div class="col-4 offset-4 d-flex justify-content-center">
+			<div class="w-75">
+                <form [formGroup]='resetForm'>
+                    <div class="form-row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <mat-form-field class="w-100 logIn">
+                                <mat-label class="pimColor">Gebruikersnaam</mat-label>
+                                <input matInput type="text" formControlName='Username'/>
+                                <mat-icon class="me-2 pimColor" matPrefix>person_outline</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <button mat-raised-button class="pimBgColor w-100 logIn" [disabled]='!this.resetForm.valid' (click)="resetPass()">Reset wachtwoord</button>
+                        </div>
+                    </div>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>

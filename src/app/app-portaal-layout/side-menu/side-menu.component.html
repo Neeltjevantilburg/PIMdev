@@ -1,0 +1,61 @@
+<mat-toolbar>
+  <div class="menu">
+    <mat-action-list>
+      <button mat-list-item [routerLink]="['/home']">
+        <mat-icon  [ngStyle]="btnStyle.home.icon">home</mat-icon>
+        <p [ngStyle]="btnStyle.home.text" [ngStyle]="btnStyle.home.text" class="sidenav-menu-item">Home </p>
+      </button>
+      <button mat-list-item  [routerLink]="['/werknemers']" *ngIf="(isManager$ | async)">
+          <mat-icon  [ngStyle]="btnStyle.werknemers.icon">groups</mat-icon>
+          <p class="sidenav-menu-item" [ngStyle]="btnStyle.werknemers.text">Werknemers </p>
+      </button>
+      <button mat-list-item  [routerLink]="['/salarisadministratie']" *ngIf="(isManager$ | async)">
+          <mat-icon [ngStyle]="btnStyle.salarisadministratie.icon">euro</mat-icon>
+          <p class="sidenav-menu-item" [ngStyle]="btnStyle.salarisadministratie.text">Salarisadministratie </p>
+      </button>
+      <button mat-list-item [routerLink]="['/mijn_dossier', myId]">
+          <mat-icon [ngStyle]="btnStyle.mijn_dossier.icon">folder_shared</mat-icon>
+          <p class="sidenav-menu-item" [ngStyle]="btnStyle.mijn_dossier.text">Mijn dossier</p>
+      </button>
+      <button mat-list-item [routerLink]="['/handleiding']">
+          <mat-icon [ngStyle]="btnStyle.handleiding.icon">quiz</mat-icon>
+          <p class="sidenav-menu-item" [ngStyle]="btnStyle.handleiding.text">Handleiding </p>
+      </button>
+      <button mat-list-item>
+          <mat-icon>bolt</mat-icon>
+          <p class="sidenav-menu-item" [matMenuTriggerFor]="snelMenu">Snelle actie </p>
+      </button>
+    </mat-action-list>
+  </div>
+  <div>
+    <div class="d-flex justify-content-center">
+      <img src="/assets/images/PIM.png" class="rounded-circle">
+    </div>
+    <div>
+        <p class="text-center">PIM powered by OAK</p>
+    </div>
+  </div>
+</mat-toolbar>
+<mat-menu #snelMenu="matMenu">
+  <button mat-menu-item (click)="newEmployee()">
+    <mat-icon>add</mat-icon>
+    <span>nieuwe werknemer invoeren </span>
+  </button>
+  <button mat-menu-item (click)="newContract()">
+    <mat-icon>add</mat-icon>
+    <span>nieuw contract</span>
+  </button>
+  <button mat-menu-item (click)="createAbsence()">
+    <mat-icon>add</mat-icon>
+    <span>nieuwe verlofaanvraag</span>
+  </button>
+  <button mat-menu-item >
+    <mat-icon>add</mat-icon>
+    <span>nieuwe declaratie</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>add</mat-icon>
+    <span>nieuwe verzuimmelding</span>
+  </button>
+</mat-menu>
+

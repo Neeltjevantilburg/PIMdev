@@ -1,0 +1,314 @@
+<mat-card-content class="h90">
+    <mat-tab-group class="matTab" (selectedTabChange)="tabChanged($event)">
+    <!-- <mat-tab-group class="bedrijfsPadding matTab" (selectedTabChange)="tabChanged($event)" [selectedIndex]="3"> -->
+        <mat-tab label="Algemene informatie">
+            <div class="h-100 pt-3">
+                <div class="container-fluid h-100 pt-2">
+                    <div class="row">
+                        <div class="col-2">
+                            <p class="fw-bold">Bedrijfsnaam :</p>
+                            <p class="fw-bold">Handelsnaam :</p>
+                            <p class="fw-bold">Holding / Hoofdvestiging :</p>
+                            <hr>
+                            <p class="fw-bold">Bezoekadres :</p>
+                            <br>
+                            <br>
+                            <hr>
+                            <p class="fw-bold">Postadres :</p>
+                            <br>
+                            <br>
+                            <p class="bottomBorder"><!-- spacer --></p>
+                            <p class="fw-bold">Contactpersonen :</p>
+                            <p class="fw-bold">Algemeen :</p>
+                            <br>                                                                   
+                            <p class="fw-bold">Personeelszaken :</p>
+                            <br>                                                                   
+                            <p class="fw-bold">Verzuim :</p>
+                            <br>
+                        </div>
+                        <div class="col-2">
+                            <p>{{ bedrijf.Name }}</p>
+                            <p>{{ bedrijf.Handelsnamen__c }}</p>
+                            <p>{{ bedrijf.ParentId }}</p>
+                            <hr>
+                            <p>{{ bedrijf.BillingStreet }}</p>
+                            <p>{{ bedrijf.BillingPostalCode }} {{ bedrijf.BillingCity }}</p>
+                            <p>{{ bedrijf.BillingCountry }}</p>
+                            <hr>
+                            <p>{{ bedrijf.ShippingStreet }}</p>
+                            <p>{{ bedrijf.ShippingPostalCode }} {{ bedrijf.ShippingCity }}</p>
+                            <p class="bottomBorder">{{ bedrijf.ShippingCountry }}</p>
+                            <br>
+                            <p>{{ bedrijf.cp_algemeen__c }}</p>
+                            <p>{{ bedrijf.cpAlgemeenEmail }}</p>
+                            <p>{{ bedrijf.Contactpersoon__c }}</p>
+                            <p>{{ bedrijf.cpHrmEmail }}</p>
+                            <p>{{ bedrijf.Cp_Verzuim__c }}</p>
+                            <p>{{ bedrijf.cpVerzuimEmail }}</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="fw-bold">Telefoonnummer :</p>
+                            <p class="fw-bold">Algemeen e&#45;mailadres :</p>
+                            <p class="fw-bold">Website :</p>                                                        
+                            <hr>
+                            <p class="fw-bold">KvK nummer :</p>
+                            <p class="fw-bold">BTW nummer :</p>
+                            <p class="fw-bold">IBAN :</p>
+                            <hr>
+                            <p class="fw-bold">Factuurwijze :</p>
+                            <p class="fw-bold">Betalingswijze :</p>
+                            <p class="fw-bold bottomBorder">Betalingstermijn :</p>
+                            <br>
+                            <p class="fw-bold">Salarisadministratie :</p>
+                            <br>                                                                    
+                            <p class="fw-bold">Debiteurenadministratie :</p>
+                            <br>                                                                   
+                            <p class="fw-bold">Crediteurenadministratie :</p>
+                            <br>
+                        </div>
+                        <div class="col-2">
+                            <p>{{ bedrijf.Phone }}</p>
+                            <p>{{ bedrijf.Mailadres_OB__c }}</p>
+                            <p>{{ bedrijf.Website }}</p>
+                            <hr>
+                            <p>{{ bedrijf.KvK_nummer__c }}</p>
+                            <p>{{ bedrijf.BTW_nummer__c }}</p>
+                            <p>{{ bedrijf.IBAN__c }}</p>
+                            <hr>
+                            <p>{{ bedrijf.Factuurwijze__c }}</p>
+                            <p>{{ bedrijf.Betaalwijze__c }}</p>
+                            <p class="bottomBorder">{{ bedrijf.Betalingstermijn__c }}</p>
+                            <br>
+                            <p>{{ bedrijf.CP_Salarisadministratie__c }}</p>
+                            <p>{{ bedrijf.cpSaladEmail }}</p>
+                            <p>{{ bedrijf.CP_Debiteurenadministratie__c }}</p>
+                            <p>{{ bedrijf.cpDebAdminEmail }}</p>
+                            <p>{{ bedrijf.CP_voor_Facturatie__c }}</p>
+                            <p>{{ bedrijf.cpCreditAdminEmail }}</p>
+                        </div>
+                        <div class="col-4 leftBorder px-3">
+                            <p class="fw-bold">Bedrijfsomschrijving :</p>
+                            <br>
+                            <p>{{ bedrijf.Bedrijfsomschrijving__c }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>                        
+        <mat-tab label="Salarisadministratie, Afdelingen & Functies">
+            <div class="h-100">
+                <div class="container-fluid h-100 pt-3">
+                    <div class="row h-100">
+                        <div class="col-2">
+                            <p class="fw-bold ">1 FTE in uren :</p>
+                            <p class="fw-bold">Verlofdagen per jaar :</p>
+                            <p class="fw-bold">Verloningsfrequentie :</p>
+                            <p class="fw-bold">Vaksector :</p>
+                            <p class="fw-bold">CAO :</p>
+                            <p class="fw-bold">Pensioenfonds :</p>
+                            <p class="fw-bold">Aansluitnummer pensioenfonds :</p>
+                            <p class="fw-bold">Loonheffingennummer :</p>
+                            <br>
+                            <div class="spacer"></div>
+                            <br>
+                            <p class="fw-bold">Bedrijfsrooster(s) :</p>
+                        </div>
+                        <div class="col-2 ps-3">
+                            <p>{{ bedrijf.Definitie_1_FTE_in_uren__c }}</p>
+                            <p>{{ bedrijf.Verlofdagen_per_jaar__c }}</p>
+                            <p>{{ bedrijf.Verloningsfrequentie__c }}</p>
+                            <p>{{ bedrijf.Vaksector__c }}</p>
+                            <p>{{ bedrijf.CAO__c }}</p>
+                            <p>{{ bedrijf.Pensioenfonds__c }}</p>
+                            <p>{{ bedrijf.Pensioenfonds_aansluitnummer__c }}</p>
+                            <p>{{ bedrijf.Loonheffingnummer__c }}</p>
+                            <br>
+                            <button mat-raised-button (click)="update('account', this.bedrijf.Id)">Bewerk gegevens</button>
+                            <br>
+                            <br>
+                            <div *ngFor="let rooster of roosters" class="d-flex align-items-center">
+                                <p>{{ rooster.naam }}</p>
+                                <button mat-icon-button class="size ms-2 me-1">
+                                    <mat-icon (click)="read('schedule', rooster.id)">info</mat-icon>
+                                </button>
+                                <p>|</p>
+                                <button mat-icon-button class="size mx-1">
+                                    <mat-icon (click)="update('schedule', rooster.id)">edit</mat-icon>
+                                </button>
+                                <p>|</p>
+                                <button mat-icon-button class="size ms-1">
+                                    <mat-icon (click)="delete('schedule', rooster.id)">delete</mat-icon>
+                                </button>
+                            </div>
+                            <button mat-raised-button class="mt-2" (click)="create('schedule')">Nieuw bedrijfsrooster</button>
+                        </div>
+                        <div class="col-4 leftBorder">
+                            <div class="container-fluid overflow-auto h-100">
+                                <div class="row d-flex justify-content-between align-items-center">
+                                    <h3 class="m-0 w-50">Afdelingen:</h3>
+                                    <mat-form-field class="p-0 w-50 pe-5">
+                                        <mat-label>Vind afdeling</mat-label>
+                                        <input matInput
+                                            (keyup)="afdelingFilter($event)"
+                                            placeholder="Bijv. Marketing"
+                                            #input
+                                        />
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="row w-100">
+                                    <div class="col-12">
+                                        <table mat-table matSort
+                                            [dataSource]="afdelingen"
+                                            class="mat-elevation-z8 w-100"
+                                            #afdelingSort="matSort"
+                                        >                                                
+                                            <ng-container matColumnDef="code">
+                                                <th mat-header-cell mat-sort-header *matHeaderCellDef> Functiecode </th>
+                                                <td mat-cell *matCellDef="let afdeling">{{afdeling.code}}</td>
+                                            </ng-container>
+                            
+                                            <ng-container matColumnDef="naam">
+                                                <th mat-header-cell mat-sort-header *matHeaderCellDef> Functienaam </th>
+                                                <td mat-cell *matCellDef="let afdeling">{{afdeling.naam}}</td>
+                                            </ng-container>
+                            
+                                            <ng-container matColumnDef="options">
+                                                <th mat-header-cell *matHeaderCellDef ></th>
+                                                <td mat-cell *matCellDef="let afdeling">
+                                                    <div class="d-flex">
+                                                        <button mat-icon-button class="size" (click)="read('department', afdeling.id)">
+                                                            <mat-icon>info</mat-icon>
+                                                        </button>
+                                                        <p class="px-1">|</p>
+                                                        <button mat-icon-button class="size" (click)="update('department', afdeling.id)">
+                                                            <mat-icon>edit</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </ng-container>
+                                            
+                                            <tr mat-header-row *matHeaderRowDef="afdelingenColumns"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: afdelingenColumns;"></tr>
+                            
+                                            <tr class="mat-row" *matNoDataRow>
+                                                <td class="mat-cell" colspan="4">Geen overkomsten met "{{input.value}}"</td>
+                                            </tr>
+                                        </table>
+                                        <mat-paginator
+                                            #afdelingPaginator="matPaginator"
+                                            [pageSize]="5"
+                                        ></mat-paginator>
+                                        <button mat-raised-button (click)="create('department')">Nieuwe afdeling</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 leftBorder">
+                            <div class="container-fluid overflow-auto h-100">
+                                <div class="row d-flex justify-content-between align-items-center">
+                                    <h3 class="m-0 w-50">Functies:</h3>
+                                    <mat-form-field class="p-0 w-50 pe-5">
+                                        <mat-label>Vind functie</mat-label>
+                                        <input matInput
+                                            (keyup)="functieFilter($event)"
+                                            placeholder="Bijv. Manager"
+                                            #input
+                                        />
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="row w-100">
+                                    <div class="col-12">
+                                        <table mat-table matSort
+                                            [dataSource]="functies"
+                                            class="mat-elevation-z8 w-100"
+                                            #functieSort="matSort"
+                                        >                                                
+                                            <ng-container matColumnDef="code">
+                                                <th mat-header-cell mat-sort-header *matHeaderCellDef> Functiecode </th>
+                                                <td mat-cell *matCellDef="let functie">{{functie.code}}</td>
+                                            </ng-container>
+                            
+                                            <ng-container matColumnDef="naam">
+                                                <th mat-header-cell mat-sort-header *matHeaderCellDef> Functienaam </th>
+                                                <td mat-cell *matCellDef="let functie">{{functie.naam}}</td>
+                                            </ng-container>
+                            
+                                            <ng-container matColumnDef="options">
+                                                <th mat-header-cell *matHeaderCellDef ></th>
+                                                <td mat-cell *matCellDef="let functie">
+                                                    <div class="d-flex">
+                                                        <button mat-icon-button class="size" (click)="read('functie', functie.id)">
+                                                            <mat-icon>info</mat-icon>
+                                                        </button>
+                                                        <p class="px-1">|</p>
+                                                        <button mat-icon-button class="size" (click)="update('functie', functie.id)">
+                                                            <mat-icon>edit</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </ng-container>
+                                            
+                                            <tr mat-header-row *matHeaderRowDef="functiesColumns"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: functiesColumns;"></tr>
+                            
+                                            <tr class="mat-row" *matNoDataRow>
+                                                <td class="mat-cell" colspan="4">Geen overkomsten met "{{input.value}}"</td>
+                                            </tr>
+                                        </table>
+                                        <mat-paginator
+                                            #functiePaginator="matPaginator"
+                                            [pageSize]="5"
+                                        ></mat-paginator>
+                                        <button mat-raised-button (click)="create('function')">Nieuwe functie</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                        
+        </mat-tab>
+        <mat-tab label="Documenten">
+            <div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+                <h1>Comning Soon!</h1>
+            </div>
+        </mat-tab>
+        <mat-tab label="Logo & kleur instellingen">
+            <div class="container-fluid h-100 p-0">
+                <div class="row h-100 pt-2 m-0">
+                    <div class="col-6 h-100">
+                        <div class="container-fluid h-75 d-flex align-items-center justify-content-center">
+                            <img class="rounded-circle logo" [src]="logoSource">                        
+                        </div>
+                        <div class="container-fluid h-25 d-flex align-items-center justify-content-center">
+                            <button mat-raised-button (click)="update('image', 'imgId001')">Upload logo</button>
+                        </div>
+                    </div>
+                    <div class="col-6 h-100 leftBorder">
+                        <div class="container-fluid h-75 d-flex flex-column align-items-center justify-content-center">
+                            <div #colorSelect class="marginEnd"
+                                ngx-colors-trigger
+                                [palette] = "colorPalette"
+                                acceptLabel="Selecteer kleur"
+                                [(ngModel)]="color"
+                            ></div>
+                            <div class="rounded-circle colorSelect d-flex align-items-center justify-content-center" [style.background-color]="color"></div>
+                        </div>
+                        <div class="container-fluid h-25 d-flex align-items-center justify-content-around">
+                            <button mat-raised-button (click)="selectColor()">Selecteer uw accentkleur</button>
+                            <button mat-raised-button (click)="setColor()" [disabled]="colorBtn">Activeer uw accentkleur</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>                  
+</mat-card-content>
+<mat-card-actions class="h10">
+    <div class="w-100 px-3 d-flex justify-content-between">
+        <button mat-raised-button (click)="close()">Sluiten</button>
+        <button [hidden]="viewBtn" mat-raised-button (click)="updateAccount()">Gegevens {{ accountCompleet ? 'bewerken' : 'compleet maken' }}</button>
+    </div>
+</mat-card-actions>

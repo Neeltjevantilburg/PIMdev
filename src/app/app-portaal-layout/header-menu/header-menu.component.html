@@ -1,0 +1,24 @@
+ <mat-toolbar [ngStyle]="customBackgroundColor">
+  <span class="spacer"></span>
+  <span mat-button class="account--title" [matMenuTriggerFor]="mijnPim">
+    <img *ngIf="imgSource$ | async as imgSource" [src]="imgSource" class="rounded-circle"/>
+    <p>Mijn PIM</p>
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </span>
+</mat-toolbar>
+
+<mat-menu #mijnPim="matMenu">
+  <button mat-menu-item [routerLink]="['/mijn_profiel']">
+    <mat-icon>account_circle</mat-icon>
+    <span>mijn profiel</span>
+  </button>
+  <button mat-menu-item [routerLink]="['/mijn_bedrijf']">
+    <mat-icon>business</mat-icon>
+    <span>mijn bedrijf</span>
+  </button>
+  <button mat-menu-item (click)="logOut()">
+    <mat-icon>logout</mat-icon>
+    <span>uitloggen</span>
+  </button>
+</mat-menu>
+

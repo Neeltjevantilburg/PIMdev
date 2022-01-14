@@ -1,0 +1,62 @@
+<div class="row" *ngIf="contact$ | async as contact">
+    <div class="col-4 d-flex align-items-center justify-content-center">
+        <div class="image-container">
+            <img *ngIf="imgSource$ | async as imgSource" [src]="imgSource" class="rounded-circle avatar"/>
+            <p [ngStyle]="customColor" (click)="editProfilePicture()">wijzig foto</p>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-6">
+                <p>Naam:</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">{{ contact.Name }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>Adres:</p>
+                <p class="hiddenText">Adres</p>
+                <p class="hiddenText">Adres</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">{{ contact.OtherStreet }}</p>
+                <p class="fontWeight">{{ contact.OtherPostalCode }} {{ contact.OtherCity }}</p>
+                <p class="fontWeight">{{ contact.OtherCountry }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>Functie:</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">{{ contact.Title }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>Leidinggevende:</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">{{ contact.Contactpersoon_beheren__r?.Name }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>Telefoonnummer:</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">{{ contact.HomePhone }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>Status:</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">{{ contact.Actief__c ? 'In dienst' : 'Uit dienst' }}</p>
+            </div>
+        </div>
+    </div>    
+</div>

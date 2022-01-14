@@ -1,0 +1,40 @@
+<div class="content">
+    <div class="header">
+        <p class="title">Mijn bedrijf</p>  
+    </div>
+    <div class="tabs">
+        <div class="tab d-flex justify-content-center align-items-center" (click)="switchContent('bedrijfsgegevens')" [ngClass]="tabStyle.bedrijfsgegevens">
+            <p>Bedrijfsgegevens</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" (click)="switchContent('afdelingenEnFuncties')" [ngClass]="tabStyle.afdelingenEnFuncties">
+            <p>Afdelingen & Functies</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" (click)="switchContent('documenten')" [ngClass]="tabStyle.documenten">
+            <p>Documenten</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" (click)="switchContent('gebruikers')" [ngClass]="tabStyle.gebruikers">
+            <p>Gebruikers</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" (click)="switchContent('instellingen')" [ngClass]="tabStyle.instellingen">
+            <p>Instellingen</p>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div *ngIf="view === 'bedrijfsgegevens'" class="tab-body">
+            <pim-company-details-view></pim-company-details-view>
+        </div>
+        <div *ngIf="view === 'afdelingenEnFuncties'" class="tab-body">
+            <pim-company-deparments-functions-view></pim-company-deparments-functions-view>
+        </div>
+        <div *ngIf="view === 'documenten'" class="tab-body">
+            <pim-company-files-view></pim-company-files-view>
+        </div>
+        <div *ngIf="view === 'gebruikers'" class="tab-body">
+            <pim-company-users-view></pim-company-users-view>
+        </div>
+        <div *ngIf="view === 'instellingen'" class="tab-body">
+            <pim-company-settings-view></pim-company-settings-view>
+        </div>
+    </div>
+</div>
+

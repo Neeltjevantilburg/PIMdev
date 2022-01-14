@@ -1,0 +1,18 @@
+<div class="header">
+    <p class="dialogTitle">Bestandstype niet ondersteund</p>
+    <hr>
+</div>
+<div class="body">
+    <br>
+    <p>Het bestand {{ data.fileName }}.{{ data.fileType }}</p>
+    <p>kan niet worden weergegeven of gedownload.</p>
+    <br>
+    <p>Klik <a [href]="mail">hier</a> om contact op te nemen met OakPim</p>
+    <br>
+</div>
+<div class="footer">
+    <hr>
+    <div class="d-flex justify-content-end">
+        <button mat-button [ngStyle]='customBackgroundColor'[mat-dialog-close]="true"><p>Sluiten</p></button>
+    </div>
+</div>

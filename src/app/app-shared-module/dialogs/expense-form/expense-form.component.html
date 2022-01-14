@@ -1,0 +1,60 @@
+<div *ngIf="loaded" class="container-fluid h-100">
+    <div class="row border-bottom">
+        <h4>Declaratie</h4>
+    </div>
+    <div class="row pt-3 border-bottom">
+        <h5 *ngIf="empOrSelect()" class="pb-1 text-center">{{ employee!.Name }}</h5>
+        <form [formGroup]="expenseForm" class="w-100 m-0">
+            <div class="row">
+                <div *ngIf="!empOrSelect()" class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-100" appearance="legacy">
+                        <mat-label>Medewerker</mat-label>
+                        <mat-select formControlName="employees">
+                            <mat-option *ngFor="let option of select" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Datum transactie</mat-label>
+                        <input matInput class="form" type="date" formControlName="DateTransaction__c"/>
+                    </mat-form-field>                    
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Bedrag</mat-label>
+                        <input matInput type="number" min="0.01" step="0.01" formControlName="Amount__c"/>
+                        <span matPrefix class="me-2">€</span>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Categorie</mat-label>
+                        <mat-select formControlName="ExpenseCategory__c">
+                            <mat-option>test</mat-option>
+                        </mat-select> 
+                    </mat-form-field>                    
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Type</mat-label>
+                        <mat-select formControlName="Type__c">
+                            <mat-option>test</mat-option>
+                        </mat-select>
+                    </mat-form-field>                  
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-100" appearance="legacy">
+                        <mat-label>Opmerkingen</mat-label>
+                        <textarea matInput rows="8" formControlName="Comments__c"></textarea> 
+                    </mat-form-field>            
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row pt-3 d-flex justify-content-between">
+        <div class="w-50">
+            <button mat-raised-button color="warn" (click)="close()">Annuleer</button>
+        </div>
+        <div class="w-50 d-flex justify-content-end">
+            <button mat-raised-button class="me-2" (click)="sendForm(true)">Opslaan</button>
+            <button mat-raised-button (click)="sendForm(false)">Indienen</button>
+        </div>
+    </div>    
+</div>

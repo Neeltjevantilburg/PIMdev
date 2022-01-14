@@ -1,0 +1,20 @@
+<div *ngIf="!login" class="container-fluid vh-100 p-0 backgroundColor">
+	<div class="row w-100 h5 m-0 p-0"></div>
+	<div class="row w-100 h30 m-0">
+        <div class="col-4 offset-4 d-flex flex-column p-0">
+            <div class="container h-100">
+                <div class="row h-100 d-flex justify-content-center m-0 p-0">
+                    <img [src]="imgSource" class="rounded-circle img-fluid w-50"/>
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="row w-100 m-0">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="row w-100 h5 m-0 p-0"></div>
+</div>
+
+<div *ngIf="login" class="container-fluid vh-100 p-0">
+    <router-outlet></router-outlet>
+</div>

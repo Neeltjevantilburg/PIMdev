@@ -1,0 +1,122 @@
+<div>
+    <p class="title">Nieuwe medewerker</p>
+    <hr>
+</div>
+<div>
+    <div [formGroup]="employeeForm">
+        <div class="row">
+            <div class="col-2">
+                <p class="fontWeight">Aanhef</p>
+            </div>
+            <div class="col-3">
+                <p class="fontWeight">Voornaam</p>
+            </div>
+            <div class="col-3">
+                <p class="fontWeight">Tussenvoegsel</p>
+            </div>
+            <div class="col-4">
+                <p class="fontWeight">Achternaam</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <div class="select-wrapper">
+                    <select formControlName="Salutation">
+                        <option></option>
+                        <option *ngFor="let option of picklist.type.aanheffen" [value]="option.value">{{ option.value }}</option>
+                    </select> 
+                </div>
+            </div>
+            <div class="col-3">
+                <input tabindex="1" formControlName="FirstName"/>
+            </div>
+            <div class="col-3">
+                <input tabindex="2" formControlName="MiddleName"/>
+            </div>
+            <div class="col-4">
+                <input tabindex="3" formControlName="LastName"/>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Adres</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Contactgegevens</p>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <input tabindex="4" formControlName="MailingStreet" placeholder="Straatnaam en huisnummer"/>
+            </div>
+            <div class="col-6">
+                <input tabindex="7" formControlName="EmailHome__c"placeholder="E-mail"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <input tabindex="5" class="my-1" formControlName="MailingPostalCode" placeholder="Postcode"/>
+            </div>
+            <div class="col-6">
+                <input tabindex="8" class="my-1" formControlName="HomePhone"placeholder="Telefoonnummer"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <input tabindex="6" formControlName="MailingCity" placeholder="Plaatsnaam"/>
+            </div>
+            <div class="col-6">
+                <input tabindex="9" formControlName="PhoneMobileHome__c"placeholder="Mobiel"/>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Pim rol</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Manager</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="select-wrapper">
+                    <select tabindex="10" formControlName="PIM_Rollen__c">
+                        <option></option>
+                        <option *ngFor="let option of picklist.type.pimRollen" [value]="option.value">{{ option.viewValue }}</option>
+                    </select> 
+                </div>
+            </div>
+            <div class="col-6">
+                <div tabindex="11" *ngIf="managerIdPicklist" class="select-wrapper">
+                    <select formControlName="Contactpersoon_beheren__c">
+                        <option></option>
+                        <option *ngFor="let option of managerIdPicklist" [value]="option.value">{{ option.viewValue }}</option>
+                    </select>                    
+                </div> 
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Datum in dienst</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <input tabindex="12" class="date-input" type="date" formControlName="EmployedSince__c"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <button class="cancelBtn" mat-dialog-close><p>sluiten</p></button>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+            <button [ngStyle]="customBackgroundColor" (click)="save()"><p>opslaan</p></button>
+        </div>
+    </div>
+</div>

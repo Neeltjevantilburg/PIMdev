@@ -1,0 +1,47 @@
+<div *ngIf="contact$ | async as contact" class="container-fluid">
+    <div class="row header d-flex align-items-top justify-content-between">
+        <div class="w-50">
+            <span (click)="toOverview()"><mat-icon class="arrow">arrow_back</mat-icon>Werknemers</span>
+            <div class="d-flex align-items-center">
+                <p class="title">{{ contact.Name }}</p>
+                <mat-icon [ngClass]="indicator">fiber_manual_record</mat-icon>
+            </div>
+        </div>
+        <button *ngIf="!contact.AzureActive && view === 'persoonlijk'" class="activate" (click)="activateUser(contact.Username__c, contact.Id)" #activateBtn><p>Account activeren</p></button>
+        <button *ngIf="contact.AzureActive && view === 'persoonlijk'" class="deactivate" (click)="deactivateUser(contact.Username__c, contact.Id)" #deactivateBtn><p>Account deactiveren</p></button>
+        <button *ngIf="view === 'contract'" [ngStyle]="customBackgroundColor"><p>Nieuw Contract</p></button>
+        <button *ngIf="view === 'verlof'" [ngStyle]="customBackgroundColor"(click)="createAbsence()"><p>Verlof aanvragen</p></button>
+        <button *ngIf="view === 'verzuim'" [ngStyle]="customBackgroundColor"><p>Nieuwe verzuimmelding</p></button>
+        <button *ngIf="view === 'declaratie'" [ngStyle]="customBackgroundColor" (click)="newExpense()"><p>Nieuwe declaratie</p></button>
+    </div>
+    <div class="row d-flex tabs">
+        <div class="tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.persoonlijk" (click)="switchContent('persoonlijk')">
+            <p>Persoonlijk</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.contract" (click)="switchContent('contract')">
+            <p>Contract</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.documenten" (click)="switchContent('documenten')">
+            <p>Documenten</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.verlof" (click)="switchContent('verlof')">
+            <p>Verlof</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.verzuim" (click)="switchContent('verzuim')">
+            <p>Verzuim</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.declaratie" (click)="switchContent('declaratie')">
+            <p>Declaratie</p>
+        </div>
+        <div class="tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.taken" (click)="switchContent('taken')">
+            <p>Taken</p>
+        </div>
+    </div>
+    <div class="row body d-flex align-items-center">    
+        <pim-personal-tab [hidden]="view !== 'persoonlijk'" [contact$]='contact$'></pim-personal-tab>
+        <pim-view-files [hidden]="view !== 'documenten'" [contact$]="contact$"></pim-view-files>
+        <pim-absence-list [hidden]="view !== 'verlof'" *ngIf="absenceData$ |async as absenceData" [absenceData]="absenceData"></pim-absence-list>
+        <!-- fix table view-->
+        <pim-expenses-table [hidden]="view !== 'declaratie'" [managerTable]="managerTable"></pim-expenses-table>
+    </div>
+</div>

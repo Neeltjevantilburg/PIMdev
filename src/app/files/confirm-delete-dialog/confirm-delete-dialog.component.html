@@ -1,0 +1,14 @@
+<div class="header">
+    <p class="title">Bevestig bestand verwijderen</p>
+    <hr>
+</div>
+<div class="body d-flex align-items-center">
+    <p>U staat op het punt om het bestand {{ data.fileName }} definitief te verwijderen.</p>
+</div>
+<div class="footer">
+    <hr>
+    <div class="d-flex justify-content-between">
+        <button class="cancelBtn" mat-button mat-dialog-close><p>Annuleer</p></button>
+        <button mat-button [ngStyle]='customBackgroundColor'[mat-dialog-close]="true"><p>Bevestig</p></button>
+    </div>
+</div>

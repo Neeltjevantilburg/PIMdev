@@ -1,0 +1,288 @@
+<div *ngIf="companyData$ | async as company" class="component-container">
+    <div class="element-container">
+        <div class="header">
+            <div>
+                <p>Algemene bedrijfsgegevens</p>
+                <mat-icon class="material-icons-outlined">edit</mat-icon>
+            </div>
+            <hr>
+        </div>
+        <div class="main">
+            <div class="main-sub-1">
+                <div>
+                    <img *ngIf="imgSource$ | async as imgSource" [src]='imgSource' class="rounded-circle logo"/>
+                </div>
+                <div>
+                    <div>
+                        <div>                        
+                            <p>Bedrijfsnaam :</p>
+                        </div>
+                        <div>                        
+                            <p>{{ company.Name }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <p>Handelsnaam :</p>
+                        </div>
+                        <div>                       
+                            <p>{{ company.Handelsnamen__c }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <p>Hoofdvestiging :</p>
+                        </div>
+                        <div>                     
+                            <p *ngIf="company.Parent">{{ company.Parent.Name }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="main-sub-2">
+                <div>
+                    <div>
+                        <div>                        
+                            <p>Bezoekadres :</p>
+                        </div>
+                        <div>                        
+                            <p>{{ company.BillingStreet }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div>                        
+                            <p>{{ company.BillingPostalCode }} {{ company.BillingCity }}</p>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div>
+                        <div>                        
+                            <p>Postadres :</p>
+                        </div>
+                        <div>                        
+                            <p>{{ company.ShippingStreet }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div></div>
+                        <div>                        
+                            <p>{{ company.ShippingPostalCode }} {{ company.ShippingCity }}</p>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div>
+                        <div>                        
+                            <p>Telefoonnummer :</p>
+                        </div>
+                        <div>                        
+                            <p>{{ company.Phone }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <p>E-mailadres <span>(algemeen)</span> :</p>
+                        </div>
+                        <div>                        
+                            <p>{{ company.Mailadres_OB_IM__c }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <p>Website :</p>
+                        </div>
+                        <div>                       
+                            <a href="https://{{ company.Website }}" target="_blank"><p>{{ company.Website }}</p></a>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div>
+                        <div>
+                            <p>Bedrijfsomschrijving :</p>
+                        </div>
+                        <div>                       
+                            <p>{{ company.Bedrijfsomschrijving__c }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <hr>
+        </div>
+    </div>
+    <div class="element-container">
+        <div class="header">
+            <div>
+                <p>Overige bedrijfsgegevens</p>
+                <mat-icon class="material-icons-outlined">edit</mat-icon>
+            </div>
+            <hr>
+        </div>
+        <div class="main">
+            <div class="main-sub-3">
+                <div>
+                    <div>
+                        <div>                        
+                            <p>KvK nummer :</p>
+                        </div>
+                        <div>                        
+                            <p>{{ company.KvK_nummer__c }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <p>BTW nummer :</p>
+                        </div>
+                        <div>                        
+                            <p>{{ company.BTW_nummer__c }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <p>IBAN :</p>
+                        </div>
+                        <div>                       
+                            <p>{{ company.IBAN__c }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p>Factuurwijze :</p>
+                        </div>
+                        <div>                       
+                            <p>{{ company.Factuurwijze__c }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p>Betaalwijze :</p>
+                        </div>
+                        <div>                       
+                            <p>{{ company.Betaalwijze__c }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p>Betalingstermijn :</p>
+                        </div>
+                        <div>                       
+                            <p>{{ company.Betalingstermijn__c }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <hr>
+        </div>
+    </div>
+    <div class="element-container">
+        <div class="header">
+            <div>
+                <p>Contactpersonen</p>
+                <mat-icon class="material-icons-outlined">edit</mat-icon>
+            </div>
+            <hr>
+        </div>
+        <div class="main">
+            <div class="main-sub-4">
+                <div>
+                    <div>
+                        <div>                        
+                            <p class="contact-title">Algemeen :</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <a href="mailto:{{ company.cp_algemeen__r.Email }}">
+                                <span>
+                                    <mat-icon class="material-icons-outlined">email</mat-icon> {{ company.cp_algemeen__r.Name }}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div>
+                        <div>                        
+                            <p class="contact-title">Personeelszaken :</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>  
+                            <a href="mailto:{{ company.Contactpersoon__r.Email }}">
+                                <span>
+                                    <mat-icon class="material-icons-outlined">email</mat-icon> {{ company.Contactpersoon__r.Name }}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div>
+                        <div>                        
+                            <p class="contact-title">Verzuim :</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <a href="mailto:{{ company.CP_Verzuim__r.Email }}">
+                                <span>
+                                    <mat-icon class="material-icons-outlined">email</mat-icon> {{ company.CP_Verzuim__r.Name }}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div>
+                        <div>                        
+                            <p class="contact-title">Salarisadministratie :</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <a href="mailto:{{ company.CP_Salarisadministratie__r.Email }}">
+                                <span>
+                                    <mat-icon class="material-icons-outlined">email</mat-icon> {{ company.CP_Salarisadministratie__r.Name }}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div>
+                        <div>                        
+                            <p class="contact-title">Debiteurenadministratie :</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <a href="mailto:{{ company.CP_Debiteurenadministratie__r.Email }}">
+                                <span>
+                                    <mat-icon class="material-icons-outlined">email</mat-icon> {{ company.CP_Debiteurenadministratie__r.Name }}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div>
+                        <div>                        
+                            <p class="contact-title">Crediteurenadministratie :</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                        
+                            <a href="mailto:{{ company.CP_voor_Facturatie__r.Email }}">
+                                <span>
+                                    <mat-icon class="material-icons-outlined">email</mat-icon> {{ company.CP_voor_Facturatie__r.Name }}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <hr>
+        </div>
+    </div>
+</div>

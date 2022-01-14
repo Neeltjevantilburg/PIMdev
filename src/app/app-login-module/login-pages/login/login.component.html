@@ -1,0 +1,86 @@
+<div class="container-fluid vh-100">
+	<div class="row h-100">
+	  <div
+		class="
+		  col-6
+		  d-flex
+		  flex-column
+		  justify-content-center
+		  align-items-center
+		  pim-background-color
+		"
+	  >
+		<div class="row w-75">
+		  <div class="col-6">
+			<img src="./assets/images/PIM.png" class="rounded-circle img-fluid p-3" />
+		  </div>
+		  <div class="col-6 d-flex flex-column justify-content-center">
+			<div class="row">
+			  <p class="titel">WELKOM BIJ PIM!</p>
+			</div>
+		  </div>
+		</div>
+		<div class="row w-75">
+		  <p class="text-wrap">
+			Fijn dat je er bent. Vul hier je gebruikersnaam en wachtwoord in om
+			bij mij in te loggen. Kom je er niet uit of heb je een vraag? Neem dan
+			contact op met jouw HR-afdeling of leidinggevende.
+		  </p>
+		</div>
+	  </div>
+	  <div
+		class="col-6 d-flex flex-column justify-content-center align-items-center"
+	  >
+		<div class="row p-5 d-flex flex-column login-form">
+		  <p class="titel-login">Login</p>
+		  <p class="subtext">
+			Welkom bij PIM! Log hier in op je account
+		  </p>
+		  <!-- 
+			Template Driven Form maken gebruik van ngModel, dit zorgt voor html vervuiling
+			wat in kleine formulieren niet erg is in principe, maar bij grotere formulieren wordt het onoverzichtelijk
+			Daarom is er over de gehele app gekozen voor Reactive Forms, hierbij gebeurd het controleren e.d. in de .ts file
+		  -->
+		  <form [formGroup]='loginForm'>
+			<div class="d-flex-column">
+			  <p class="mb-2">Gebruikersnaam:</p>
+			  <!-- removed row's and Material-formfield
+			  <div class="row">
+				  <mat-form-field appearance="outline">
+					<input matInput placeholder="Gebruikersnaam" />
+				  </mat-form-field>
+				</div>
+				<div class="row">
+				  <p class="mb-1">Wachtwoord:</p>
+				  <mat-form-field appearance="outline">
+					<input matInput placeholder="Wachtwoord" type="password" />
+				  </mat-form-field>
+				</div> -->
+				<div class="d-flex overlayContainer">
+				  <input class="login-input overlay" placeholder="Gebruikersnaam" formControlName='userName'/>
+				  <mat-icon class="pimColor overlay" matPrefix>person_outline</mat-icon>
+			  </div>
+			  <p class="my-2">Wachtwoord:</p>
+			  <div class="d-flex overlayContainer">
+				  													<!--    true or false ? true      :  false    -->	
+				<input class="login-input overlay" placeholder="Wachtwoord" [type]="hide ? 'password' : 'text'" formControlName='password' />
+				<mat-icon class="pimColor overlay toggle" (click)="hide = !hide" #passIcon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+													<!-- (click) => toggle hide true false -->
+			  </div>									
+				
+			  <div class="login-btn">
+				<div class="w-100 my-3 pb-3 d-flex justify-content-end">
+				  <!-- <button mat-raised-button color="primary">Login</button> -->
+				  <button (click)="login()">Login</button>
+				</div>
+			  </div>
+			</div>
+			<div class="w-100 d-flex justify-content-center">
+			  <a class="ww-forgot" (click)="navigate.to('/wachtwoord/vergeten')">Wachtwoord vergeten?</a>
+			</div>
+		  </form>
+		</div>
+	  </div>
+	</div>
+</div>
+  

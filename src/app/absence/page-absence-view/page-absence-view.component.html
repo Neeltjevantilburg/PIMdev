@@ -1,0 +1,37 @@
+<div class="row mt-5">
+  <div class="col-md-10">
+    <p class="col-md-10 page-title">Verlof Overzicht</p>
+    <p class="page-sub-title">Hier kan verlof worden doorgegeven, goedgekeurd of afgekeurd</p>
+  </div>
+  <div class="col-md-2">
+    <button class="add-leave-button"  [ngStyle]="customColor" mat-button (click)="createAbsence()">
+      <p class="add-leave-button-title">Verlof toevoegen</p>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <mat-tab-group mat-align-tabs="end" color="transparent">
+    <mat-tab label="Openstaand">
+      <ng-template matTabContent>
+        <pim-absence-list *ngIf="openAbsenceData$|async as openAbsenceData"  [absenceData]="openAbsenceData"></pim-absence-list>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Afgerond">
+      <ng-template matTabContent>
+        <pim-absence-list *ngIf="finishedAbsenceData$|async as finishedAbsenceData" [absenceData]="finishedAbsenceData"></pim-absence-list>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Alle">
+      <ng-template matTabContent>
+      <pim-absence-list-filter (filterCriteriaChanged)="onFilterCriteriaChange($event)"></pim-absence-list-filter>
+        <pim-absence-list *ngIf="allAbsenceData$|async as allAbsenceData" [absenceData]="allAbsenceData"></pim-absence-list>
+      </ng-template>
+      
+    </mat-tab>
+    <mat-tab label="Mijn Overzicht" *ngIf="isManager$ | async">
+      <ng-template matTabContent>
+        <pim-manager-absence-list *ngIf="allAbsenceForManager$|async as allAbsenceForManager" [absenceData]="allAbsenceForManager"></pim-manager-absence-list>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

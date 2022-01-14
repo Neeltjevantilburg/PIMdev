@@ -1,0 +1,86 @@
+<h1 mat-dialog-title>Verlof Aanvraag</h1>
+<div mat-dialog-content>
+  <form [formGroup]="absenceForm">
+    <div class="row" *ngIf="isManager$ | async">
+      <div class="col-8">
+        <mat-form-field>
+          <mat-label>Medewerker</mat-label>
+          <mat-select formControlName="employeeId">
+            <mat-option *ngFor="let employee of employees$ | async" [value]="employee.Id">
+              {{employee.FirstName}} {{employee.LastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <mat-form-field>
+          <mat-label>Verloftype</mat-label>
+          <mat-select formControlName="absenceType">
+            <mat-option
+              *ngFor="let type of absenceType"
+              [value]="type"
+            >
+            {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> 
+      </div>
+      <div class="col-4 absence-days-hours-radio">
+        <mat-radio-group aria-label="Soort" formControlName="absenceKind">
+          <mat-radio-button [value]="'days'">Dagen</mat-radio-button>
+          <mat-radio-button [value]="'hours'">Uren</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row" *ngIf="(showHours$ | async)">
+      <div class="col-4">
+        <mat-label>Dag</mat-label>
+        <mat-form-field>
+          <input matInput type="date" formControlName="absenceFirstDay">
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-label>Uren</mat-label>
+        <mat-form-field>
+          <input matInput type="number" max="8" formControlName="numberOfHours">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="(showDays$ | async)">
+      <div class="col-4">
+        <mat-label>Eerste dag</mat-label>
+        <mat-form-field>
+          <input matInput type="date" formControlName="absenceFirstDay">
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-label>Laatste dag</mat-label>
+        <mat-form-field>
+          <input matInput type="date" formControlName="absenceLastDay">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="10">
+        <mat-label>Toelichting</mat-label>
+        <mat-form-field>
+          <textarea matInput cols="8" rows="5" formControlName="comments" cdkTextareaAutosize> </textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="dialog-action-buttons">
+  <button mat-button mat-dialog-close class="dialog-cancel-action dialog-action-button">
+    <span class="font-color">terug</span>
+  </button>
+  <button mat-button mat-dialog-close="true" class="dialog-action-button" (click)="onSubmitClick('Niet ingediend')" align="end">
+    <span class="font-color">opslaan</span>
+  </button>
+  <button mat-button mat-dialog-close="true" [ngStyle]="customColor" class="dialog-action-button" (click)="onSubmitClick('Ingediend')" align="end">
+    <span class="font-color">indienen</span>
+  </button>
+</div>

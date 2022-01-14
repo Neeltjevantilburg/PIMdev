@@ -1,0 +1,783 @@
+<ng-container *ngIf="contact$ | async as contact">
+    <div class="row mt-1">
+        <div class="col-md-10">
+          <p *ngIf="!managerTable" class="col-md-10 page-title">Mijn dossier</p>
+        </div>
+        <div *ngIf="tabIndex === 3 && managerTable" class="col-md-2">
+          <button class="add-leave-button" [ngStyle]="customColor" mat-button (click)="createAbsence()">
+            <p class="add-leave-button-title">Verlof toevoegen</p>
+          </button>
+        </div>
+      </div>
+    <mat-card-header>
+        <h4 *ngIf="managerTable">{{ contact.Name }}</h4>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-tab-group color="transparent" class="FileTab" animationDuration='0ms' [(selectedIndex)]="tabIndex">
+            <mat-tab label="Persoonlijk">
+                <div class="row m-0 mt-4">
+                    <div class="col-6 d-flex flex-column">
+                        <div class="row mb-5">
+                            <pim-profile-view [contact$]="contact$"></pim-profile-view>                           
+                        </div>
+                        <div class="detail-button d-flex justify-content-between align-items-center" [ngClass]="btnStyle.persoonsgegevens" (click)="switchContent('persoonsgegevens')">
+                            <div class="ps-2"><p>Persoonsgegevens</p></div>
+                            <div class="pe-2"><p class="arrow">></p></div>
+                        </div>
+                        <div class="detail-button d-flex justify-content-between align-items-center" [ngClass]="btnStyle.contactgegevens" (click)="switchContent('contactgegevens')">
+                            <div class="ps-2"><p>Contactgegevens</p></div>
+                            <div class="pe-2"><p class="arrow">></p></div>
+                        </div>
+                        <div class="detail-button d-flex justify-content-between align-items-center" [ngClass]="btnStyle.financiele_gegevens" (click)="switchContent('financiele_gegevens')">
+                            <div class="ps-2"><p>Financiële gegevens</p></div>
+                            <div class="pe-2"><p class="arrow">></p></div>
+                        </div>
+                        <div class="detail-button d-flex justify-content-between align-items-center" [ngClass]="btnStyle.werkgeversinformatie" (click)="switchContent('werkgeversinformatie')">
+                            <div class="ps-2"><p>Werkgeversinformatie</p></div>
+                            <div class="pe-2"><p class="arrow">></p></div>
+                        </div>
+                        <div class="detail-button d-flex justify-content-between align-items-center mb-4" [ngClass]="btnStyle.werknemersrooster" (click)="switchContent('werknemersrooster')">
+                            <div class="ps-2"><p>Werknemersrooster</p></div>
+                            <div class="pe-2"><p class="arrow">></p></div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="fileContent">
+                            <div class="d-flex justify-content-between py-3">
+                                <p class="title">{{ viewName }}</p>
+                                <mat-icon class="material-icons-outlined" (click)="edit()">edit</mat-icon>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <hr>
+                            </div>
+                            <div *ngIf="view === 'persoonsgegevens'" class="content">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Voorletters:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.NameFirstLetters__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Voornaam:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.FirstName }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Tussenvoegsel:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.MiddleName }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Achternaam:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.LastName }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Geslacht:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Gender__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Geboortedatum:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Birthdate | date : 'dd-MM-yyyy' }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Geboorteplaats:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.BirthPlace__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Geboorteland:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.BirthCountry__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Identiteitsbewijs:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.IdentificationType__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Documentnummer:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.IdentificationTypeNumber__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Vervaldatum:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.IdentificationExpirationDate__c | date : 'dd-MM-yyyy' }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>BSN:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.BSN__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Nationaliteit:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Nationality__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Burgelijke staat:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.MaritalStatus__c }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="view === 'contactgegevens'" class="content">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Thuisadres:</p>
+                                        <p class="hiddenText">Adres</p>
+                                        <p class="hiddenText">Adres</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.OtherStreet }}</p>
+                                        <p class="fontWeight">{{ contact.OtherPostalCode }} {{ contact.OtherCity }}</p>
+                                        <p class="fontWeight">{{ contact.OtherCountry }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Telefoonnummer prive:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.HomePhone }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Mobiel prive:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.PhoneMobileHome__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>E-mail prive:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.EmailHome__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Telefoonnummer zakelijk:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Phone }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Mobiel zakelijk:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.MobilePhone }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>E-mail zakelijk:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Email }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Noodcontact 1</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Naam:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.EmergencyPrimName__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Telefoonnummer:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.EmergencyPrimNmbr__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Relatie tot {{ contact.FirstName }}:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.EmergencyPrimRel__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Noodcontact 2</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Naam:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.EmergencySecName__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Telefoonnummer:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.EmergencySecNmbr__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Relatie tot {{ contact.FirstName }}:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.EmergencySecRel__c }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="view === 'financiele_gegevens'" class="content">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>IBAN:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.IBAN__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Personeelsnummer:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Personal_ID__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Nummer salarisadministratie:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.LogisalNR__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Verloningfrequentie:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Verloningsfrequentie__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Loonheffingskorting:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Loonheffingskorting__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>AUTO</p>
+                                    </div>
+                                </div>
+                                <ng-container  *ngIf="companyCar$ | async as car; else noCompanyCar">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>Auto van de zaak:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">Ja</p>
+                                        </div>
+                                    </div>
+                                    <div class="row bg-warning">
+                                        <div class="col-4">
+                                            <p>Bijtelling:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">...::: Onduidelijk :::...</p>
+                                        </div>
+                                    </div>
+                                    <div class="row bg-warning">
+                                        <div class="col-4">
+                                            <p>Privégebruik:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">...::: Onduidelijk :::...</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>Kenteken:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">{{ car.Kenteken__c }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>Startdatum auto:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">{{ car.Uitgiftedatum__c }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="spacer"></div>
+                                </ng-container>
+                                <ng-template #noCompanyCar>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>Auto van de zaak:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">Nee</p>
+                                        </div>
+                                    </div>
+                                    <div class="spacer"></div>
+                                </ng-template>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>TELEFOON</p>
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="companyPhone$ | async as phone; else noCompanyPhone">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>Zakelijke telefoon:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">Ja</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>Zakelijk telefoonnummer:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">{{ phone.Telefoonnummer__c }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>IMEI  nummer:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">{{ phone.IMEI_nummer__c }}</p>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noCompanyPhone>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>Zakelijke telefoon:</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="fontWeight">Nee</p>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <div *ngIf="view === 'werkgeversinformatie'" class="content">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Bedrijfsnaam:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Account?.Name}}</p>
+                                    </div>
+                                </div>
+                                <div class="row bg-warning">
+                                    <div class="col-4">
+                                        <p>Bedrijfsonderdeel:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">...::: onduidelijk :::...<p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Afdelingsnaam:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Afdelinglookup__r?.Name }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Standplaats:</p>
+                                        <p class="hiddenText">Standplaats:</p>
+                                        <p class="hiddenText">Standplaats:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.MailingStreet }}</p>
+                                        <p class="fontWeight">{{ contact.MailingPostalCode }} {{ contact.MailingCity }}</p>
+                                        <p class="fontWeight">{{ contact.MailingCountry }}</p>
+                                    </div>
+                                </div>
+                                <div class="spacer"></div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Leidinggevende:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Contactpersoon_beheren__r?.Name }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Pimrol:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.PIM_Rollen__c }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>Status:</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="fontWeight">{{ contact.Actief__c ? 'In dienst' : 'Uit dienst' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="view === 'werknemersrooster'" class="content">
+                                <div class="row">
+                                    <div *ngIf="evenWeekSchedule$ | async as schedule" class="col-6 rightBorder">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>Dagen even week:</p>
+                                            </div>
+                                        </div>
+                                        <div class="spacer"></div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Maandag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.ma__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Dinsdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.tue__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Woensdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.wed__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Donderdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.thurs__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Vrijdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.fri__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Zaterdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.sat__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Zondag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.sun__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="spacer"></div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Weektype:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.Week_Type__c}}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>Werkdagen:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.Werkdagen__c}}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>Totale Uren:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.TotalHoursDecimal__c}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="unevenWeekSchedule$ | async as schedule" class="col-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>Dagen oneven week:</p>
+                                            </div>
+                                        </div>
+                                        <div class="spacer"></div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Maandag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.ma__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Dinsdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.tue__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Woensdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.wed__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Donderdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.thurs__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Vrijdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.fri__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Zaterdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.sat__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Zondag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.sun__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="spacer"></div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Weektype:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.Week_Type__c}}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>Werkdagen:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.Werkdagen__c}}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>Totale Uren:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.TotalHoursDecimal__c}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="weekSchedule$ | async as schedule" class="col-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>Dagen week:</p>
+                                            </div>
+                                        </div>
+                                        <div class="spacer"></div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Maandag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.ma__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Dinsdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.tue__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Woensdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.wed__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Donderdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.thurs__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Vrijdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.fri__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Zaterdag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.sat__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Zondag:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.sun__c}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="spacer"></div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p>Weektype:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.Week_Type__c}}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>Werkdagen:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.Werkdagen__c}}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p>Totale Uren:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="fontWeight">{{ schedule.TotalHoursDecimal__c}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Contract"></mat-tab>
+            <mat-tab label="Documenten">
+                <pim-view-files [contact$]="contact$"></pim-view-files>
+            </mat-tab>
+            <mat-tab label="Verlof">
+                <pim-absence-list *ngIf="absenceData$|async as absenceData" [absenceData]="absenceData"></pim-absence-list>
+            </mat-tab>
+            <mat-tab label="Verzuim"></mat-tab>
+            <mat-tab label="Declaratie">
+                <div class="button-container">
+                    <button class="newExpenseBtn" [ngStyle]="customBackgroundColor" (click)="newExpense()"><p>Nieuwe declaratie</p></button>
+                </div>
+                <pim-expenses-table [managerTable]="managerTable"></pim-expenses-table>
+            </mat-tab>
+            <mat-tab label="Taken">
+                <!-- <pim-task-overview></pim-task-overview> -->
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</ng-container>

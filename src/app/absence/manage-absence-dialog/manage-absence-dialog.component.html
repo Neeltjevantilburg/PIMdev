@@ -1,0 +1,101 @@
+<h1 mat-dialog-title>Verlof Aanvraag</h1>
+<mat-divider class="divider"></mat-divider>
+<div mat-dialog-content>
+    <div class="row">
+      <div class="col-8 margin-bottom">
+          <mat-label class="label">Werknemer</mat-label>
+          <p class="text">{{dialogData.employee}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 margin-bottom">
+          <mat-label class="label">Verloftype</mat-label>
+          <p class="text">{{dialogData.absenceType}}</p> 
+      </div>
+    </div>
+    <div class="row margin-bottom">
+      <div class="col-4">
+        <mat-label class="label">Eerste dag</mat-label>
+        <p class="text">{{dialogData.absenceStartDay}}</p>  
+      </div>
+      <div class="col-4">
+        <mat-label class="label">Laatste dag</mat-label>
+        <p class="text">
+          {{dialogData.absenceEndDay}}
+        </p> 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 margin-bottom">
+        <mat-label class="label">Toelichting</mat-label>
+        <p class="text">
+          {{dialogData.comments}}
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-10">
+        <mat-label class="label">Status</mat-label>
+        <container-element [ngSwitch]="dialogData.status">
+          <div *ngSwitchCase="'Ingediend'">
+            <span class="leave-status">
+              <mat-icon class="leave-pending">schedule</mat-icon>
+              <p class="leave-pending">Ingediend</p>
+            </span>
+          </div>
+          <div *ngSwitchCase="'Goedgekeurd'">
+            <span class="leave-status">
+              <mat-icon class="leave-approved">check</mat-icon>
+              <p class="leave-approved">Goedgekeurd</p>
+            </span>
+          </div>
+          <div *ngSwitchCase="'Afgekeurd'">
+            <span class="leave-status">
+              <mat-icon class="leave-denied">close</mat-icon>
+              <p class="leave-denied">Afgekeurd</p>
+            </span>
+          </div>
+          <div *ngSwitchCase="'Afgewezen'">
+            <span class="leave-status">
+              <mat-icon class="leave-denied">close</mat-icon>
+              <p class="leave-denied">Afgekeurd</p>
+            </span>
+          </div>
+          <!--default case when there are no matches -->
+          <div *ngSwitchDefault></div>
+        </container-element>
+      </div>
+    </div>
+</div>
+<mat-divider class="divider"></mat-divider>
+<div mat-dialog-actions class="dialog-action-buttons" *ngIf="(isEmployee$ | async)">
+  
+  <button mat-button mat-dialog-close class="dialog-cancel-action dialog-action-button">
+    <span class="font-color">terug</span>
+  </button>
+  <button mat-button mat-dialog-close="true" class class="dialog-action-button approve-button" (click)="revokeSubmittedAbsence()" align="end" *ngIf="dialogData.status === 'Ingediend'">
+    <span class="font-color">Intrekken</span>
+  </button>
+  <button mat-button mat-dialog-close="true" class [ngStyle]="customColor" class="dialog-action-button remove-button" mat-dialog-close (click)="modifyAbsence()" align="end" *ngIf="dialogData.status === 'Ingediend'">
+    <span class="font-color">Wijzigen</span>
+  </button>
+</div>
+
+<div mat-dialog-actions class="dialog-action-buttons" *ngIf="(isManager$ | async)">
+  <button mat-button mat-dialog-close class="dialog-cancel-action dialog-action-button">
+    <span class="font-color">terug</span>
+  </button>
+  <button mat-button mat-dialog-close="true" class="dialog-action-button deny-button" (click)="rejectAbsence()" align="end" *ngIf="dialogData.status === 'Ingediend'">
+    <span class="font-color">Afwijzen</span>
+  </button>
+  <button mat-button mat-dialog-close="true" class="dialog-action-button approve-button" (click)="approveAbsence()" align="end" *ngIf="dialogData.status === 'Ingediend'">
+    <span class="font-color">Goedkeuren</span>
+  </button>
+  <button mat-button mat-dialog-close="true" [ngStyle]="customColor" class="dialog-action-button approve-button" (click)="revokeSubmittedAbsence()" align="end" *ngIf="dialogData.status === 'Goedgekeurd'">
+    <span class="font-color">Goedkeuring Intrekken</span>
+  </button>
+  <button mat-button class="dialog-action-button remove-button" mat-dialog-close="true" (click)="removeAbsence()" align="end" *ngIf="dialogData.status === 'Goedgekeurd'">
+    <span class="font-color">Verwijderen</span>
+  </button>
+</div>

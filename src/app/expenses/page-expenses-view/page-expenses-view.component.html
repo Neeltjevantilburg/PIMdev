@@ -1,0 +1,12 @@
+<div class="container-fluid">
+    <div class="row header d-flex align-items-top justify-content-between">
+        <div class="w-50">
+            <p class="title">Declaraties</p>
+            <p class="subtitle">Hier kunnen declaraties worden doorgegeven, goedgekeurd of afgekeurd</p>
+        </div>
+        <button [ngStyle]="customBackgroundColor" (click)="newExpense()"><p>Nieuwe declaratie</p></button>
+    </div>
+    <div class="row body">
+        <pim-expenses-table [managerTable]=true></pim-expenses-table>
+    </div>
+</div>

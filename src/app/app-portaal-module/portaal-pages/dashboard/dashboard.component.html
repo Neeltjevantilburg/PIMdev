@@ -1,0 +1,92 @@
+<div class="container-fluid p-0 ps-5">
+    <div class="row py-3 mb-3">
+        <div class="test"></div>
+    
+        <div class="col-4">
+            <mat-card class="accent dashboard--card">
+                <div class="container-fluid d-flex flex-column h-100 m-0 p-0">
+                    <button *ngIf="isEmployee$ | async" class="w-100 h-100" [ngStyle]="button" [routerLink]="['/mijn_dossier', currentUserId]"></button>
+                    <button *ngIf="isManager$ | async" class="w-100 h-100" [ngStyle]="button" [routerLink]="['/verlof']"></button>
+                    <div class="row w-100 h-25 m-0 p-0">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <h3>Verlof</h3>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-50 m-0 p-0">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <p class="leave-total">{{ absenceTotal$ |async  }}</p>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-25 m-0 p-0" *ngIf="absence$ | async as leave">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <p class="text-center">Openstaande {{ (leave).length === 1 ? 'verlofaanvraag' : 'verlofaanvragen' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-4 ">
+            <mat-card class="accent dashboard--card">
+                <div class="container-fluid d-flex flex-column h-100 m-0 p-0">
+                    <button *ngIf="isEmployee$ | async" class="w-100 h-100" [ngStyle]="button" [routerLink]="['/mijn_dossier', currentUserId]"></button>
+                    <button *ngIf="isManager$ | async" class="w-100 h-100" [ngStyle]="button" [routerLink]="['/verzuim']"></button>
+                    <div class="row w-100 h-25 m-0 p-0">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <h3>Verzuim</h3>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-50 m-0 p-0">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <p class="absent-total">{{ sicknessTotal$ | async }}</p>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-25 m-0 p-0" *ngIf="sickness$ |async as absent">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <p class="text-center">Openstaande {{ (absent).length >= 1 ? 'taak' : 'taken' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-4">
+            <mat-card class="accent dashboard--card">
+                <div class="container-fluid d-flex flex-column h-100 m-0 p-0">
+                    <button *ngIf="isEmployee$ | async" class="w-100 h-100" [ngStyle]="button" [routerLink]="['/mijn_dossier', currentUserId]"></button>
+                    <button *ngIf="isManager$ | async" class="w-100 h-100" [ngStyle]="button" [routerLink]="['/declaratie']"></button>
+                    <div class="row w-100 h-25 m-0 p-0">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <h3>Declaratie</h3>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-50 m-0 p-0">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <p class="expense-total">{{ expenseTotal$ | async}}</p>
+                        </div>
+                    </div>
+                    <div class="row w-100 h-25 m-0 p-0" *ngIf="expenseTotal$ | async as expenseTotal">
+                        <div class="col-12 d-flex align-items-center justify-content-center p-0">
+                            <p class="text-center">Openstaande {{ expenseTotal === 1 ? 'declaratie' : 'declaraties' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-7">
+            <mat-card class="accent dashboard--card">
+                <pim-task-overview></pim-task-overview>
+            </mat-card>           
+        </div>
+
+        <div class="col-5">                
+            <mat-card class="accent dashboard--card">
+                <pim-birthday-overview></pim-birthday-overview>
+            </mat-card>           
+        </div>
+        
+    </div>
+</div>

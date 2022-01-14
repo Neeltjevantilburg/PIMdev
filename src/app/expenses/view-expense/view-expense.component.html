@@ -1,0 +1,134 @@
+<div *ngIf="expenseData$ | async as expense">
+    <div class="header">
+        <p class="title">Declaratie</p>
+        <hr>
+    </div>
+    <div class="body">
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Medewerker</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Datum ingediend</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>{{ expense.Employee_Contact__r.Name }}</p>
+            </div>
+            <div class="col-6">
+                <p>{{ expense.DateSubmitted__c | date : 'dd-MM-yyyy' }}</p>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Bedrag</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Betaaldatum</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>€ {{ expense.Amount__c }}</p>
+            </div>
+            <div class="col-6">
+                <p>{{ expense.DateTransaction__c | date : 'dd-MM-yyyy' }}</p>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <p class="fontWeight">Reden van uitgave</p>
+        </div>
+        <div class="row">
+            <p>{{ expense.Business_Purpose__c }}</p>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <p class="fontWeight">Bijlagen</p>
+        </div>
+        <div class="row">
+            <div *ngIf='attachedFile as file; else noFile' class="d-flex">
+                <mat-icon>attach_file</mat-icon>
+                <p (click)="viewFile(file.ContentDocumentId)" class="link">{{ file.Title }}</p>
+            </div>
+            <ng-template #noFile>
+                <p>geen bijlage</p>
+            </ng-template>
+        </div>
+        <hr>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Kostencategorie</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Betaalwijze</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>{{ expense.ExpenseCategory__c }}</p>
+            </div>
+            <div class="col-6">
+                <p>{{ expense.Payment_Type__c }}</p>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Kostentype</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Kostenplaats</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>{{ expense.Type__c }}</p>
+            </div>
+            <div class="col-6">
+                <p>{{ expense.Projectnummer_Kostenplaatsnummer__c }}</p>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <p class="fontWeight">Opmerkingen</p>
+        </div>
+        <div class="row">
+            <p>{{ expense.Comments__c }}</p>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">Status</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">Datum goedgekeurd</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p *ngIf="expense.State__c === 'Goedgekeurd'" class="expense-approved">{{ expense.State__c }}</p>
+                <p *ngIf="expense.State__c === 'Afgewezen'" class="expense-denied">{{ expense.State__c }}</p>
+                <p *ngIf="expense.State__c === 'Ingediend'" class="expense-pending">{{ expense.State__c }}</p>
+            </div>
+            <div class="col-6">
+                <p>{{ expense.DateApproved__c | date : 'dd-MM-yyyy' }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <button class="cancelBtn" mat-dialog-close><p>Terug</p></button>
+            </div>
+            <div class="col-6 d-flex justify-content-between" *ngIf="data.managerDialog">
+                <button class="rejectBtn" (click)="handleExpense(false)"><p>afwijzen</p></button>
+                <button class="approveBtn" (click)="handleExpense(true)"><p>goedkeuren</p></button>
+            <div>
+        </div>
+    </div>
+</div>

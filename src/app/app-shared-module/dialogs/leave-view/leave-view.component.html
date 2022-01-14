@@ -1,0 +1,52 @@
+<div class="container-fluid h-100">
+    <div class="row border-bottom">
+        <h4>Bekijk verlof</h4>
+    </div>
+    <div class="row pt-3 border-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 d-flex flex-column">
+                    <p class="m-0"><b>Werknemer</b></p>
+                    <p>{{ leave!.naam }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex flex-column">
+                    <p class="m-0"><b>Verloftype</b></p>
+                    <p>{{ leave!.verloftype }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Startdatum</b></p>
+                    <p>{{ leave!.startDatum  | date: 'dd-MM-yyyy' }}</p>
+                </div>
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Einddatum</b></p>
+                    <p>{{ leave!.eindDatum  | date: 'dd-MM-yyyy'  }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex flex-column">
+                    <p class="m-0"><b>Toelichting</b></p>
+                    <p>{{ leave!.opmerking }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Status</b></p>
+                    <p>{{ leave!.status }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-3 d-flex justify-content-between">
+        <div class="w-50">
+            <button mat-raised-button color="warn" (click)="close()">Annuleer</button>
+        </div>
+        <div class="w-50 d-flex justify-content-end">
+            <button mat-raised-button class="me-2" (click)="approved(false)" [disabled]="completed()">Afwijzen</button>
+            <button mat-raised-button (click)="approved(true)" [disabled]="completed()">Goedkeuren</button>
+        </div>
+    </div>    
+</div>

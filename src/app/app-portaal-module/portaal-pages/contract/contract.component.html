@@ -1,0 +1,84 @@
+<div class="container-fluid overflow-auto">
+    <div class="row d-flex justify-content-between align-items-center mb-4">
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <mat-form-field class="p-0 pe-5">
+                <mat-label>Vind contract</mat-label>
+                <input matInput
+                (keyup)="filter($event)"
+                placeholder="Bijv. proeftijd"
+                #input
+                />
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="col-12">
+            <table mat-table matSort
+                [dataSource]="contract"
+                class="mat-elevation-z8 w-100"
+                #sort="matSort"
+            >                                                
+                <ng-container matColumnDef="naam">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Medewerker </th>
+                    <td mat-cell *matCellDef="let contract">{{contract.naam}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="signaleringsDatum">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> signaleringsdatum </th>
+                    <td mat-cell *matCellDef="let contract">{{contract.signaleringsDatum  | date: 'dd-MM-yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="datumEindeProeftijd">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Einddatum proeftijd </th>
+                    <td mat-cell *matCellDef="let contract">{{contract.datumEindeProeftijd  | date: 'dd-MM-yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="datumEindeContract">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Einddatum contract </th>
+                    <td mat-cell *matCellDef="let contract">{{contract.datumEindeContract  | date: 'dd-MM-yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Type </th>
+                    <td mat-cell *matCellDef="let contract">{{contract.type}}</td>
+                </ng-container>    
+
+                <ng-container matColumnDef="quickActions">
+                    <th mat-header-cell *matHeaderCellDef ></th>
+                    <td mat-cell class="p-0" *matCellDef="let contract">
+                        <div [matMenuTriggerFor]="snelMenu" class="w-25">
+                            <button mat-icon-button>
+                                <mat-icon
+                                matTooltip="snel menu"
+                                matTooltipShowDelay="1000"
+                                >menu</mat-icon>
+                            </button>
+                            <mat-menu #snelMenu="matMenu">
+                                <button mat-menu-item (click)="openDialog(contract.id)">
+                                    <mat-icon>add</mat-icon>
+                                    <span>Open dossier</span>
+                                </button>
+                                <button mat-menu-item (click)="openDialog(contract.id)">
+                                    <mat-icon>add</mat-icon>
+                                    <span>Nieuw contract</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="contractColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: contractColumns;"></tr>
+                
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Geen overkomsten met "{{input.value}}"</td>
+                </tr>
+            </table>
+            <mat-paginator
+                #paginator="matPaginator"
+                [pageSize]="pageSize"
+            ></mat-paginator>
+        </div>
+    </div>
+</div>

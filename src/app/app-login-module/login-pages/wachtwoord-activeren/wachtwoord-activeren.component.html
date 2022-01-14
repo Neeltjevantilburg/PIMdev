@@ -1,0 +1,66 @@
+<div class="container-fluid d-flex flex-column justify-content-between" [ngStyle]="myHeight">
+	<div class="row h10 m-0">
+		<h6 class="text-center pimColor">Welkom bij PIM</h6>
+		<h4 class="text-center"><b>Wachtwoord {{set ? 'activeren' : 'instellen'}}</b></h4>
+	</div>
+	<div class="row h-90 m-0 my-auto">
+		<div class="col-8 offset-2 d-flex justify-content-center">
+			<div class="container w-100">                
+                <div class="row w-100">
+                    <div class="col-5 offset-1">
+                        <div class="d-flex">
+                            <p class="pimColor me-2">Gebruikersnaam :</p>
+                            <p><b>{{ userName }}</b></p>
+                        </div>
+                        <form [formGroup]="passwordForm">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <mat-form-field class="logIn w-100">
+                                        <mat-label class="pimColor">Wachtwoord</mat-label>
+                                        <input matInput #password [type]="hide ? 'password' : 'text'" formControlName='password'/>
+                                        <button mat-icon-button matSuffix type ='button' (click)="hide = !hide">
+                                            <mat-icon id="passIcon" class="pimColor">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                        <mat-error *ngIf="this.passwordForm.get('password')!.invalid">{{displayErrorMessage('password')}}</mat-error>
+                                    </mat-form-field>
+                                    <mat-password-strength #strength [password]="password.value" [hidden]="true"> </mat-password-strength>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <mat-form-field class="logIn w-100">
+                                        <mat-label class="pimColor">Herhaal wachtwoord</mat-label>
+                                        <input matInput [type]="hide ? 'password' : 'text'" formControlName='confirmPassword'/>
+                                        <button mat-icon-button matSuffix type ='button' (click)="hide = !hide">
+                                            <mat-icon id="passIcon" class="pimColor">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                        <mat-error *ngIf="this.passwordForm.get('confirmPassword')!.invalid">{{displayErrorMessage('confirmPassword')}}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <button mat-raised-button class="logIn w-100" [disabled]='!this.passwordForm.valid' (click)="sendForm()">Verzend</button>
+                                    </div>
+                                </div>                    
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4 offset-1">
+                        <p class="m-0 mt-1">Uw wachtwoord moet,</p>
+                        <mat-password-strength-info
+                            class="passStrength"
+                            lowerCaseCriteriaMsg="minimaal 1 kleine letter,"
+                            upperCaseCriteriaMsg="minimaal 1 hoofdletter,"
+                            digitsCriteriaMsg="minimaal 1 cijfer,"
+                            specialCharsCriteriaMsg="minimaal 1 leesteken,"
+                            minCharsCriteriaMsg="minimaal 8 karakters,"
+                            [passwordComponent]="strength"
+                        ></mat-password-strength-info>
+                        <p class="text-end">bevatten.</p>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+    

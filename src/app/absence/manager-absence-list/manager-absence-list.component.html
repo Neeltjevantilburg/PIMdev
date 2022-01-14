@@ -1,0 +1,66 @@
+<div class="container-fluid overflow-auto">
+  <div class="row">
+          <table mat-table
+              [dataSource]="absenceData"
+              class="mat-elevation-z0 w-100"
+          >
+              <ng-container matColumnDef="Datum">
+                  <th mat-header-cell *matHeaderCellDef> Datum </th>
+                  <td mat-cell *matCellDef="let row">{{row.period}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="Uren">
+                  <th mat-header-cell *matHeaderCellDef> Uren </th>
+                  <td mat-cell *matCellDef="let row">{{row.hours}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="Status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let row">
+                      <span class="leave-status" *ngIf="row.status === 'Afgekeurd'">
+                          <mat-icon class="leave-denied">close</mat-icon>
+                          <p class="leave-denied">Afgekeurd</p>
+                      </span>
+                      <span class="leave-status" *ngIf="row.status === 'Goedgekeurd'">
+                          <mat-icon class="leave-approved">check</mat-icon>
+                          <p class="leave-approved">Goedgekeurd</p>
+                      </span>
+                      <span class="leave-status" *ngIf="row.status === 'Ingediend'">
+                          <mat-icon class="leave-pending">schedule</mat-icon>
+                          <p class="leave-pending">Ingediend</p>
+                      </span>
+                  </td>
+              </ng-container>
+              <ng-container matColumnDef="QuickActions">
+                  <th mat-header-cell *matHeaderCellDef ></th>
+                  <td mat-cell class="p-0" *matCellDef="let row">
+                      <div [matMenuTriggerFor]="snelMenu" class="w-25">
+                          <button mat-icon-button>
+                              <mat-icon
+                              matTooltip="snel menu"
+                              matTooltipShowDelay="1000"
+                              >menu</mat-icon>
+                          </button>
+                      </div>
+                      <mat-menu #snelMenu="matMenu">
+                            <button mat-menu-item (click)="checkAbsenceDetails(row.id)">
+                                <span>Verlof bekijken</span>
+                            </button>
+                      </mat-menu>
+                  </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="leaveColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: leaveColumns;"></tr>
+              
+              <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">Geen overkomsten gevonden</td>
+              </tr>   
+          </table>
+      </div>
+      <mat-paginator 
+        [length]="total$|async"
+        [pageSize]="10"
+        [pageIndex]="pageIndex$|async">
+      </mat-paginator>
+</div>

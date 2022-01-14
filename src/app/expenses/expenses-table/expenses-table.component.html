@@ -1,0 +1,137 @@
+<div *ngIf="managerTable" class="row header">
+    <div class="col-6 tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.submitted" (click)="switchContent('submitted')">
+        <p>Openstaand</p>
+    </div>
+    <div class="col-6 tab d-flex justify-content-center align-items-center" [ngClass]="tabStyle.all" (click)="switchContent('all')">
+        <p>Alle</p>
+    </div>
+</div>
+<div class="row body">
+    <div class="search--container">
+        <mat-form-field appearance="standard">
+            <mat-label>Vind declaratie</mat-label>
+            <input matInput (keyup)="search($event)" placeholder="Ex. Bedrag" #input>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+    <div class="table--container">
+        <table mat-table matSort
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 w-100"
+            #sort="matSort"
+            >                                                
+            <ng-container matColumnDef="Employee_Contact__r.Name">
+                <th class="w-title" mat-header-cell mat-sort-header *matHeaderCellDef> Werknemer </th>
+                <td mat-cell *matCellDef="let expense">{{expense.Employee_Contact__r.Name}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Amount__c">
+                <th class="w-type" mat-header-cell mat-sort-header *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let expense">€ {{expense.Amount__c}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="DateSubmitted__c">
+                <th class="w-date" mat-header-cell mat-sort-header *matHeaderCellDef> Datum ingediend </th>
+                <td mat-cell *matCellDef="let expense">{{expense.DateSubmitted__c | date : 'dd-MM-yyyy'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="CreatedDate">
+                <th class="w-date" mat-header-cell mat-sort-header *matHeaderCellDef> Aanmaakdatum </th>
+                <td mat-cell *matCellDef="let expense">{{expense.CreatedDate | date : 'dd-MM-yyyy'}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="State__c">
+                <th class="w-date" mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let expense">
+                    <span class="expense-status" *ngIf="expense.State__c === 'Afgewezen'">
+                        <mat-icon class="expense-denied">close</mat-icon>
+                        <p class="expense-denied">Afgewezen</p>
+                    </span>
+                    <span class="expense-status" *ngIf="expense.State__c === 'Goedgekeurd'">
+                        <mat-icon class="expense-approved">check</mat-icon>
+                        <p class="expense-approved">Goedgekeurd</p>
+                    </span>
+                    <span class="expense-status" *ngIf="expense.State__c === 'Ingediend'">
+                        <mat-icon class="expense-pending">schedule</mat-icon>
+                        <p class="expense-pending">Ingediend</p>
+                    </span>
+                    <span class="expense-status" *ngIf="expense.State__c === 'Niet ingediend'">
+                        <mat-icon class="expense-notSubmitted">save</mat-icon>
+                        <p class="expense-notSubmitted">Niet ingediend</p>
+                    </span>
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="managerMenu">
+                <th class="w-download" mat-header-cell *matHeaderCellDef ></th>
+                <td mat-cell *matCellDef="let expense">
+                    <button mat-icon-button [matMenuTriggerFor]="MatMenu">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                    <mat-menu #MatMenu="matMenu">
+                        <div>
+                            <button mat-menu-item (click)="viewExpense(expense.Id, true)">
+                                <span>Declaratie bekijken</span>
+                            </button>
+                        </div>
+                        <div *ngIf="expense.State__c === 'Ingediend' ">
+                          <button mat-menu-item (click)="approveExpense(true, expense.Id)">
+                              <span>
+                                  <p class="expense-approved">Goedkeuren</p>
+                              </span>
+                          </button>
+                          <button mat-menu-item (click)="approveExpense(false, expense.Id)">
+                              <span>
+                                <p class="expense-denied">Afwijzen</p>
+                              </span>
+                            </button>
+                        </div>
+                  </mat-menu>
+                </td>
+            </ng-container>        
+            
+            <ng-container matColumnDef="dossierMenu">
+                <th class="w-download" mat-header-cell *matHeaderCellDef ></th>
+                <td mat-cell *matCellDef="let expense">
+                    <button mat-icon-button [matMenuTriggerFor]="MatMenu">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                    <mat-menu #MatMenu="matMenu">
+                        <div *ngIf="expense.State__c !== 'Niet ingediend' ">
+                            <button mat-menu-item (click)="viewExpense(expense.Id, false)">
+                                <span>Declaratie bekijken</span>
+                            </button>
+                        </div>
+                        <div *ngIf="expense.State__c === 'Niet ingediend' ">
+                            <button mat-menu-item (click)="editExpense(expense.Id)">
+                                <span class="expense-status">
+                                    <mat-icon class="expense-notSubmitted">save</mat-icon>
+                                    <p class="expense-notSubmitted">Bekijken</p>
+                                </span>
+                            </button>
+                            <button mat-menu-item (click)="submitExpense(expense.Id)">
+                                <span class="expense-status">
+                                    <mat-icon class="expense-pending">schedule</mat-icon>
+                                  <p class="expense-pending">Indienen</p>
+                              </span>
+                          </button>
+                            <button mat-menu-item (click)="deleteExpense(expense.Id)">
+                              <span class="expense-status">
+                                <mat-icon class="expense-denied">delete</mat-icon>
+                                  <p class="expense-denied">Annuleren</p>
+                              </span>
+                          </button>
+                        </div>
+                  </mat-menu>
+                </td>
+            </ng-container>        
+            
+            <tr mat-header-row *matHeaderRowDef="tableColums; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: tableColums;"></tr>
+            
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Geen documenten gevonden</td>
+            </tr>
+        </table>
+    </div>
+</div>

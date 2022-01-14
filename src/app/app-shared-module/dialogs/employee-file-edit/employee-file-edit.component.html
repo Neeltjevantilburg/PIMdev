@@ -1,0 +1,765 @@
+<div class="header">
+    <p class="title">Bewerk {{ editName }}</p>
+    <hr>
+</div>
+<div *ngIf="employee$ | async as contact" class="body">
+    <div *ngIf="view === 'persoonsgegevens'">
+        <form [formGroup]="employeeEditForm">
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Voorletters:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="NameFirstLetters__c"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Geslacht:</p>
+                </div>
+                <div class="col-3">
+                    <div class="select-wrapper">
+                        <select formControlName="Gender__c">
+                            <option  *ngFor="let option of picklistService.type.geslachten" [value]="option.value">{{ option.viewValue }}</option>
+                        </select>                    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Voornaam:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="FirstName"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Geboortedatum:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="Birthdate" type="date"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Tussenvoegsel:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="MiddleName"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Geboorteplaats:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="BirthPlace__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Achternaam:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="LastName"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Geboorteland:</p>
+                </div>
+                <div class="col-3">
+                    <div class="select-wrapper">
+                        <select formControlName="BirthCountry__c">
+                            <option  *ngFor="let option of picklistService.type.landen" [value]="option.value">{{ option.viewValue }}</option>
+                        </select>  
+                    </div>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Identiteitsbewijs:</p>
+                </div>
+                <div class="col-3">
+                    <div class="select-wrapper">
+                        <select formControlName="IdentificationType__c">                            
+                            <option  *ngFor="let option of picklistService.type.idBewijsSoorten" [value]="option.value">{{ option.viewValue }}</option>
+                        </select>    
+                    </div>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">BSN:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="BSN__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Documentnummer:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="IdentificationTypeNumber__c"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Nationaliteit:</p>
+                </div>
+                <div class="col-3">
+                    <div class="select-wrapper">
+                        <select formControlName="Nationality__c">
+                            <option  *ngFor="let option of picklistService.type.nationaliteiten" [value]="option.value">{{ option.viewValue }}</option>
+                        </select> 
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Vervaldatum:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="IdentificationExpirationDate__c" type="date"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Burgelijke staat:</p>
+                </div>
+                <div class="col-3">
+                    <div class="select-wrapper">
+                        <select formControlName="MaritalStatus__c">
+                            <option  *ngFor="let option of picklistService.type.burgerlijkeStaten" [value]="option.value">{{ option.viewValue }}</option>
+                        </select>  
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="view === 'contactgegevens'">
+        <form [formGroup]="employeeEditForm">
+            <div class="row">
+                <div class="col-4 offset-2">
+                    <p class="fontWeight address">Straat & huisnummer:</p>
+                    <p class="fontWeight address">Postcode:</p>
+                    <p class="fontWeight address">Plaats:</p>
+                    <p class="fontWeight address">Land:</p>
+                </div>
+                <div class="col-4">
+                    <input formControlName="OtherStreet"/>
+                    <input formControlName="OtherPostalCode"/>
+                    <input formControlName="OtherCity"/>
+                    <input formControlName="OtherCountry"/>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="row">
+                <div class="col-6">
+                    <p class="fontWeight">Privé:</p>
+                </div>
+                <div class="col-6">
+                    <p class="fontWeight">Zakelijk:</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Telefoonnummer:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="HomePhone"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Telefoonnummer:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="Phone"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Mobiel:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="MobilePhone"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Mobiel:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="PhoneMobileHome__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">E-mail:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="Email"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">E-mail:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="EmailHome__c"/>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="row">
+                <div class="col-6">
+                    <p class="fontWeight">Noodcontact 1</p>
+                </div>
+                <div class="col-6">
+                    <p class="fontWeight">Noodcontact 2</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Naam:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="EmergencyPrimName__c"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Naam:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="EmergencySecName__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Telefoonnummer:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="EmergencyPrimNmbr__c"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Telefoonnummer:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="EmergencySecNmbr__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Relatie tot {{ contact.FirstName }}:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="EmergencyPrimRel__c"/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Relatie tot {{ contact.FirstName }}:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="EmergencySecRel__c"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="view === 'financiele_gegevens'">
+        <form [formGroup]="employeeEditForm">
+            <div class="row">
+                <div class="col-4 offset-2">
+                    <p class="fontWeight">IBAN:</p>
+                </div>
+                <div class="col-4">
+                    <input formControlName="IBAN__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-2">
+                    <p class="fontWeight">Personeelsnummer:</p>
+                </div>
+                <div class="col-4">
+                    <input formControlName="Personal_ID__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-2">
+                    <p class="fontWeight">Nummer salarisadministratie:</p>
+                </div>
+                <div class="col-4">
+                    <input formControlName="LogisalNR__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-2">
+                    <p class="fontWeight">Verloningfrequentie:</p>
+                </div>
+                <div class="col-4">
+                    <input formControlName="Verloningsfrequentie__c"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-2">
+                    <p class="fontWeight">Loonheffingskorting:</p>
+                </div>
+                <div class="col-4">
+                    <input formControlName="Loonheffingskorting__c"/>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-6">
+                <p class="fontWeight">AUTO</p>
+            </div>
+            <div class="col-6">
+                <p class="fontWeight">TELEFOON</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <ng-container *ngIf="companyCar$ | async as car; else noCompanyCar">
+                    <form [formGroup]="carEditForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Bijtelling:</p>
+                            </div>
+                            <div class="col-6">
+                                <input disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Privégebruik:</p>
+                            </div>
+                            <div class="col-6">
+                                <input disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Kenteken:</p>
+                            </div>
+                            <div class="col-6">
+                                <input formControlName="Kenteken__c"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Startdatum auto:</p>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" formControlName="Uitgiftedatum__c"/>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+                <ng-template #noCompanyCar>
+                    <button mat-button class="new" *ngIf="!newCar" [ngStyle]='customBackgroundColor' (click)="add('car')"><p>Auto toevoegen</p></button>
+                    <form *ngIf="newCar" [formGroup]="carEditForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Bijtelling:</p>
+                            </div>
+                            <div class="col-6">
+                                <input disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Privégebruik:</p>
+                            </div>
+                            <div class="col-6">
+                                <input disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Kenteken:</p>
+                            </div>
+                            <div class="col-6">
+                                <input formControlName="Kenteken__c"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Startdatum auto:</p>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" formControlName="Uitgiftedatum__c"/>
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+            </div>
+            <div class="col-6">
+                <ng-container *ngIf="companyPhone$ | async as phone; else noCompanyPhone">
+                    <form [formGroup]="phoneEditForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Telefoonnummer:</p>
+                            </div>
+                            <div class="col-6">
+                                <input formControlName="Telefoonnummer__c"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">IMEI  nummer:</p>
+                            </div>
+                            <div class="col-6">
+                                <input formControlName="IMEI_nummer__c"/>
+                            </div>
+                        </div>
+                    </form>
+                </ng-container>
+                <ng-template #noCompanyPhone>
+                    <button mat-button class="new" *ngIf="!newPhone" [ngStyle]='customBackgroundColor' (click)="add('phone')"><p>Telefoon toevoegen</p></button>
+                    <form *ngIf="newPhone" [formGroup]="phoneEditForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">Telefoonnummer:</p>
+                            </div>
+                            <div class="col-6">
+                                <input formControlName="Telefoonnummer__c"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="fontWeight">IMEI  nummer:</p>
+                            </div>
+                            <div class="col-6">
+                                <input formControlName="IMEI_nummer__c"/>
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+            </div>
+        </div>      
+    </div>
+    <div *ngIf="view === 'werkgeversinformatie'">
+        <form [formGroup]="employeeEditForm">            
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Bedrijfsnaam:</p>
+                </div>
+                <div class="col-3">
+                    <p>{{ contact.Account?.Name }}</p>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Leidinggevende:</p>
+                </div>
+                <div class="col-3">
+                    <div class="select-wrapper">
+                        <select formControlName="Contactpersoon_beheren__c">
+                            <option  *ngFor="let option of managers" [value]="option.value">{{ option.viewValue }}</option>
+                        </select>                    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Bedrijfsonderdeel:</p>
+                </div>
+                <div class="col-3">
+                    <input disabled/>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Pimrol:</p>
+                </div>
+                <div class="col-3">
+                    <div class="select-wrapper">
+                        <select formControlName="PIM_Rollen__c">
+                            <option  *ngFor="let option of picklistService.type.pimRollen" [value]="option.value">{{ option.viewValue }}</option>
+                        </select>                    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight">Afdelingsnaam:</p>
+                </div>
+                <div class="col-3">
+                    <div class="select-wrapper">
+                        <select formControlName="Afdelinglookup__c">
+                            <option  *ngFor="let option of departments" [value]="option.value">{{ option.viewValue }}</option>
+                        </select>                    
+                    </div>
+                </div>
+                <div class="col-3">
+                    <p class="fontWeight">Status:</p>
+                </div>
+                <div class="col-3">
+                    <p>{{ contact.Actief__c ? 'In' : 'Uit' }} dienst</p>
+                    <!-- <div class="select-wrapper">
+                        <select formControlName="Actief__c">
+                            <option  *ngFor="let option of picklistService.type.actief" [value]="option.value">{{ option.viewValue }}</option>
+                        </select>                    
+                    </div> -->
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="fontWeight address">Straat & huisnummer:</p>
+                    <p class="fontWeight address">Postcode:</p>
+                    <p class="fontWeight address">Plaats:</p>
+                    <p class="fontWeight address">Land:</p>
+                </div>
+                <div class="col-3">
+                    <input formControlName="MailingStreet"/>
+                    <input formControlName="MailingPostalCode"/>
+                    <input formControlName="MailingCity"/>
+                    <input formControlName="MailingCountry"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="view === 'werknemersrooster'">
+        <div class="row">
+            <div *ngIf="evenWeekSchedule$ | async as schedule" class="col-6 rightBorder">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="fontWeight">Even week:</p>
+                    </div>
+                </div>
+                <form [formGroup]="evenWeekScheduleEditForm">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Maandag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="ma__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Dinsdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="tue__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Woensdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="wed__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Donderdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="thurs__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Vrijdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="fri__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Zaterdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="sat__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Zondag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="sun__c"/>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Weektype:</p>
+                        </div>
+                        <div class="col-6">
+                            <div class="select-wrapper">
+                                <select formControlName="Week_Type__c">
+                                    <option  *ngFor="let option of picklistService.type.evenOneven" [value]="option.value">{{ option.viewValue }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p class="fontWeight">Werkdagen:</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ schedule.Werkdagen__c }} </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="fontWeight">Totale Uren:</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ schedule.TotalHoursDecimal__c }} </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="unevenWeekSchedule$ | async as schedule" class="col-6">
+                <form [formGroup]="unevenWeekScheduleEditForm">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="fontWeight">Oneven week:</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Maandag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="ma__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Dinsdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="tue__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Woensdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="wed__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Donderdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="thurs__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Vrijdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="fri__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Zaterdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="sat__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Zondag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="sun__c"/>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Weektype:</p>
+                        </div>
+                        <div class="col-6">
+                            <div class="select-wrapper">
+                                <select formControlName="Week_Type__c">
+                                    <option  *ngFor="let option of picklistService.type.evenOneven" [value]="option.value">{{ option.viewValue }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p class="fontWeight">Werkdagen:</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ schedule.Werkdagen__c }} </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="fontWeight">Totale Uren:</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ schedule.TotalHoursDecimal__c }} </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="weekSchedule$ | async as schedule" class="col-6">
+                <form [formGroup]="weekScheduleEditForm">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Maandag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="ma__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Dinsdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="tue__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Woensdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="wed__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Donderdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="thurs__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Vrijdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="fri__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Zaterdag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="sat__c"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Zondag:</p>
+                        </div>
+                        <div class="col-6">
+                            <input formControlName="sun__c"/>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fontWeight">Werkdagen:</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ schedule.Werkdagen__c }} </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="fontWeight">Totale Uren:</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ schedule.TotalHoursDecimal__c }} </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <hr>
+    <div class="d-flex justify-content-between">
+        <button class="cancelBtn" mat-button mat-dialog-close><p>annuleer</p></button>
+        <button class="saveBtn" mat-button [ngStyle]='customBackgroundColor' (click)='sendForm()'><p>opslaan</p></button>
+    </div>
+</div>

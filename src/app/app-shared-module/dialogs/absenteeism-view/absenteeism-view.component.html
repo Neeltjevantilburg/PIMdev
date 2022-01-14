@@ -1,0 +1,57 @@
+<div class="container-fluid h-100">
+    <div class="row border-bottom">
+        <h4>Bekijk verzuimmelding</h4>
+    </div>
+    <div class="row pt-3 border-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Werknemer</b></p>
+                    <p>{{ absenteeism!.Employee_Contact__c }}</p>
+                </div>
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Ziektesoort</b></p>
+                    <p>{{ absenteeism!.Employee_is__c }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Eerste ziektedag</b></p>
+                    <p>{{ absenteeism!.First_Day_of_Sickness__c | date: 'dd-MM-yyyy' }}</p>
+                </div>
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Datum herstel</b></p>
+                    <p>{{ absenteeism!.Date_Full_Recovery__c | date: 'dd-MM-yyyy' }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Status</b></p>
+                    <p>{{ absenteeism!.Status_Ziekmelding__c }}</p>
+                </div>
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Gerelateerd aan</b></p>
+                    <p>{{ absenteeism!.Related_To__c }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Gewerkte uren 1ste ziektedag</b></p>
+                    <p>{{ absenteeism!.Worked_Hours_First_day_of_sickness__c }}</p>
+                </div>
+                <div class="col-6 d-flex flex-column">
+                    <p class="m-0"><b>Verwachte verzuimduur</b></p>
+                    <p>{{ absenteeism!.Expected_duration_of_Absense__c }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-3 d-flex justify-content-between">
+        <div class="w-50">
+            <button mat-raised-button color="warn" (click)="close()">Annuleer</button>
+        </div>
+        <div class="w-50 d-flex justify-content-end">
+            <button mat-raised-button (click)="recovered()" [disabled]="!completed()">Beter melden</button>
+        </div>
+    </div>    
+</div>

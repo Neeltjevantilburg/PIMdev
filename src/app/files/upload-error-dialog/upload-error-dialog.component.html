@@ -1,0 +1,25 @@
+<div>
+    <p *ngIf="error === 'size'" class="title">Bestand te groot</p>
+    <p *ngIf="error === 'type'" class="title">Bestandstype niet toegestaan</p>
+    <hr>
+</div>
+<div>
+    <p *ngIf="error === 'size'">Het bestand dat u probeert te uploaden is groter dan 5MB</p>
+    <p *ngIf="error === 'type'">
+        Het bestandstype van het bestand dat u probeert te uploaden is niet toegestaan.<br>
+        <br>
+        De volgende bestandstypen worden geaccepteerd:<br>
+        <br>
+        - Afbeeldingen: .bmp, .jpeg, .jpg, .png<br>
+        - Microsoft Office: .csv, .doc, .docx, .ppt, .pptx, .txt, .xls, .xlsx<br>
+        - PDF: .pdf<br>        
+    </p>
+</div>
+<div class="footer">
+    <hr>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <button [ngStyle]="customBackgroundColor" mat-dialog-close><p>sluiten</p></button>
+        <div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div *ngIf="loaded" class="container-fluid h-100">
+    <div class="row border-bottom">
+        <h4>Ziekmelding</h4>
+    </div>
+    <div class="row pt-3 border-bottom">
+        <h5 *ngIf="empOrSelect()" class="pb-1 text-center">{{ employee!.Name}}</h5>
+        <form [formGroup]="absenteeismForm" class="w-100 m-0">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field *ngIf="!empOrSelect()" class="px-2 w-50" appearance="legacy">
+                        <mat-label>Medewerker</mat-label>
+                        <mat-select formControlName="employees" [(value)]="selected">
+                            <mat-option *ngFor="let option of select" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Ziektesoort</mat-label>
+                        <mat-select formControlName="Employee_is__c">
+                            <mat-option *ngFor="let option of picklist.type.typeZiekmelding" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>                    
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Eerste ziektedag</mat-label>
+                        <input matInput class="form" type="date" formControlName="First_Day_of_Sickness__c"/>
+                    </mat-form-field>
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Datum hersteld</mat-label>
+                        <input matInput class="form" type="date" formControlName="Date_Full_Recovery__c"/>
+                    </mat-form-field>                    
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="Status_Ziekmelding__c">
+                            <mat-option *ngFor="let option of picklist.type.statusZiekmelding" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>                  
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Gerelateerd aan</mat-label>
+                        <mat-select formControlName="Related_To__c">
+                            <mat-option *ngFor="let option of picklist.type.ziekmeldingGerelateerdTot" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Gewerkte uren 1ste ziektedag</mat-label>
+                        <input matInput type="number" min="0.5" step="0.5" formControlName="Worked_Hours_First_day_of_sickness__c"/>
+                    </mat-form-field>            
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Verwachte verzuimduur</mat-label>
+                        <mat-select formControlName="Expected_duration_of_Absense__c">
+                            <mat-option *ngFor="let option of picklist.type.verwachteDuurZiekte" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row pt-3 d-flex justify-content-between">
+        <div class="w-50">
+            <button mat-raised-button color="warn" (click)="close()">Annuleer</button>
+        </div>
+        <div class="w-50 d-flex justify-content-end">
+            <button mat-raised-button class="me-2" (click)="sendForm()">Opslaan</button>
+        </div>
+    </div>    
+</div>

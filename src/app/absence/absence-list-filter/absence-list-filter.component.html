@@ -1,0 +1,16 @@
+<div class="filter-container">
+  <button mat-icon-button [matMenuTriggerFor]="filterMenu">
+    <mat-icon
+    matTooltip="Filter"
+    matTooltipShowDelay="1000"
+    >filter_alt</mat-icon>
+</button>
+<mat-menu #filterMenu="matMenu" class="w=100">
+  <mat-form-field>
+    <mat-label class="filter-label">Filter op:</mat-label>
+    <mat-select [formControl]="showModeCtrl">
+      <mat-option *ngFor="let option of showModeOptions" (onSelectionChange)="onSelectionChange()" [value]="option">{{option}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-menu>
+</div>

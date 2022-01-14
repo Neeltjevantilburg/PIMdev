@@ -1,0 +1,69 @@
+<div *ngIf="loaded" class="container-fluid h-100">
+    <div class="row border-bottom">
+        <h4>Verlof</h4>
+    </div>
+    <div class="row pt-3 border-bottom">
+        <h5 *ngIf="empOrSelect()" class="pb-1 text-center">{{ employee!.Name}}</h5>
+        <form [formGroup]="leaveForm" class="w-100 m-0">
+            <div class="row">
+                <div *ngIf="!empOrSelect()" class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-100" appearance="legacy">
+                        <mat-label>Medewerker</mat-label>
+                        <mat-select formControlName="employees">
+                            <mat-option *ngFor="let option of select" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Soort verlof</mat-label>
+                        <mat-select formControlName="RecordTypeId" (selectionChange)="leaveType($event)">
+                            <mat-option *ngFor="let option of picklist.type.leaveKinds" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select> 
+                    </mat-form-field>                    
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Type verlof</mat-label>
+                        <mat-select formControlName="Leave_Type__c">
+                            <mat-option *ngFor="let option of picklist.type.leaveKinds" [value]="option.value">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>                  
+                </div>
+                <div *ngIf="allDay" class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Startdatum</mat-label>
+                        <input matInput class="form" type="date" formControlName="Day_Start__c"/>
+                    </mat-form-field>                    
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Einddatum</mat-label>
+                        <input matInput class="form" type="date" formControlName="Day_End__c"/>
+                    </mat-form-field>                  
+                </div>
+                <div class="col-12">
+                    <mat-form-field *ngIf="fewHours" class="px-2 w-50" appearance="legacy">
+                        <mat-label>Datum</mat-label>
+                        <input matInput class="form" type="date" formControlName="Day__c"/>
+                    </mat-form-field>                    
+                    <mat-form-field class="px-2 w-50" appearance="legacy">
+                        <mat-label>Aantal uur</mat-label>
+                        <input matInput type="number" step="1" formControlName="Number_of_Hours__c"/>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <mat-form-field class="px-2 w-100" appearance="legacy">
+                        <mat-label>Opmerkingen</mat-label>
+                        <textarea matInput rows="8" formControlName="Comments__c"></textarea> 
+                    </mat-form-field>            
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row pt-3 d-flex justify-content-between">
+        <div class="w-50">
+            <button mat-raised-button color="warn" (click)="close()">Annuleer</button>
+        </div>
+        <div class="w-50 d-flex justify-content-end">
+            <button mat-raised-button class="me-2" (click)="sendForm(true)">Opslaan</button>
+            <button mat-raised-button (click)="sendForm(false)">Indienen</button>
+        </div>
+    </div>    
+</div>
